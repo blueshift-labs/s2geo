@@ -1,7 +1,64 @@
 #ifndef S2GEO_C_SRC_NIF_S2CELLID_H
 #define S2GEO_C_SRC_NIF_S2CELLID_H
 
-ERL_NIF_TERM s2cellid_new_from_lat_long_degrees(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+enum class S2CellIdConstructors {
+  none                  = 1,
+  sentinel              = 2,
+  from_face_pos_level   = 3,
+  from_point            = 4,
+  from_lat_lng          = 5,
+  begin                 = 6,
+  end                   = 7,
+  from_token            = 8,
+  from_face_ij          = 9,
+};
+
+enum class S2CellIdFunctionZeroArgs {
+  is_valid      = 1,
+  to_lat_lng    = 2,
+  face          = 3,
+  pos           = 4,
+  level         = 5,
+  get_size_ij   = 6,
+  get_size_st   = 7,
+  is_leaf       = 8,
+  is_face       = 9,
+  range_min     = 10,
+  range_max     = 11,
+  parent        = 12,
+  child_begin   = 13,
+  child_end     = 14,
+  next          = 15,
+  prev          = 16,
+  next_wrap     = 17,
+  prev_wrap     = 18,
+  to_token      = 19,
+  to_string     = 20,
+  lsb           = 21,
+ };
+
+
+enum class S2CellIdFunctionOneArg {
+  get_size_ij       = 100,
+  get_size_st       = 101,
+  child_position    = 102,
+  contains          = 103,
+  intersects        = 104,
+  parent            = 105,
+  child             = 106,
+  child_begin       = 107,
+  child_end         = 108,
+  advance           = 109,
+  advance_wrap      = 110,
+};
+
+ERL_NIF_TERM s2cellid_get_size_ij(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2cellid_get_size_st(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2cellid_lsb_for_level(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+
+ERL_NIF_TERM s2cellid_constructor(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2cellid_zero_args_fn(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2cellid_one_arg_fn(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
 
 #endif
 

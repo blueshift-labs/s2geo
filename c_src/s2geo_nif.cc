@@ -19,7 +19,17 @@ int on_nif_load(ErlNifEnv* env, void** priv_data, ERL_NIF_TERM load_info)
 }
 
 static ErlNifFunc nif_funcs[] = {
-    {"s2cellid_new_from_lat_long_degrees", 2, s2cellid_new_from_lat_long_degrees}
+    {"s2cellid_get_size_ij", 1, s2cellid_get_size_ij},
+    {"s2cellid_get_size_st", 1, s2cellid_get_size_st},
+    {"s2cellid_lsb_for_level", 1, s2cellid_lsb_for_level},
+
+    {"s2cellid_constructor", 1, s2cellid_constructor},
+    {"s2cellid_constructor", 2, s2cellid_constructor},
+    {"s2cellid_constructor", 3, s2cellid_constructor},
+    {"s2cellid_constructor", 4, s2cellid_constructor},
+
+    {"s2cellid_zero_args_fn", 2, s2cellid_zero_args_fn},
+    {"s2cellid_one_arg_fn", 3, s2cellid_one_arg_fn}
 };
 
 ERL_NIF_INIT(s2geo_nif, nif_funcs, on_nif_load, NULL, NULL, NULL);
