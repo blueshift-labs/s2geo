@@ -55,11 +55,6 @@
     advance_wrap/2
     ]).
 
-%-on_load(init/0).
-
--define(APPNAME, s2geo_nif).
--define(LIBNAME, s2geo).
-
 %%====================================================================
 %% API functions
 %%====================================================================
@@ -74,121 +69,121 @@ s2cellid_lsb_for_level(Level) ->
   s2geo_nif:s2cellid_lsb_for_level(Level).
 
 new() ->
-  s2geo_nif:s2cellid_constructor(?S2CELLID_CONSTRUCTOR_NONE).
+  {s2cellid, s2geo_nif:s2cellid_constructor(?S2CELLID_CONSTRUCTOR_NONE)}.
 
 new_sentinel() ->
-  s2geo_nif:s2cellid_constructor(?S2CELLID_CONSTRUCTOR_SENTINEL).
+  {s2cellid, s2geo_nif:s2cellid_constructor(?S2CELLID_CONSTRUCTOR_SENTINEL)}.
 
 new_from_lat_lng_degrees(Latitude, Longitude) ->
-    s2geo_nif:s2cellid_constructor(?S2CELLID_CONSTRUCTOR_FROM_LAT_LNG, Latitude, Longitude).
+    {s2cellid, s2geo_nif:s2cellid_constructor(?S2CELLID_CONSTRUCTOR_FROM_LAT_LNG, Latitude, Longitude)}.
 
 new_from_face_pos_level(Face, Pos, Level) when is_integer(Face), is_integer(Level) ->
-    s2geo_nif:s2cellid_constructor(?S2CELLID_CONSTRUCTOR_FROM_FACE_POS_LEVEL, Face, Pos, Level).
+    {s2cellid, s2geo_nif:s2cellid_constructor(?S2CELLID_CONSTRUCTOR_FROM_FACE_POS_LEVEL, Face, Pos, Level)}.
 
 new_from_face_ij(Face, I, J) when is_integer(Face), is_integer(I), is_integer(J) ->
-    s2geo_nif:s2cellid_constructor(?S2CELLID_CONSTRUCTOR_FROM_FACE_IJ, Face, I, J).
+    {s2cellid, s2geo_nif:s2cellid_constructor(?S2CELLID_CONSTRUCTOR_FROM_FACE_IJ, Face, I, J)}.
 
 level_begin(Level) when is_integer(Level) ->
-    s2geo_nif:s2cellid_constructor(?S2CELLID_CONSTRUCTOR_BEGIN, Level).
+    {s2cellid, s2geo_nif:s2cellid_constructor(?S2CELLID_CONSTRUCTOR_BEGIN, Level)}.
 
 level_end(Level) when is_integer(Level) ->
-    s2geo_nif:s2cellid_constructor(?S2CELLID_CONSTRUCTOR_END, Level).
+    {s2cellid, s2geo_nif:s2cellid_constructor(?S2CELLID_CONSTRUCTOR_END, Level)}.
 
 from_token(Token) when is_binary(Token) ->
-    s2geo_nif:s2cellid_constructor(?S2CELLID_CONSTRUCTOR_FROM_TOKEN, Token).
+    {s2cellid, s2geo_nif:s2cellid_constructor(?S2CELLID_CONSTRUCTOR_FROM_TOKEN, Token)}.
 
 
-is_valid(S2CellId) when is_integer(S2CellId) ->
+is_valid({s2cellid, S2CellId}) when is_integer(S2CellId) ->
     s2geo_nif:s2cellid_zero_args_fn(S2CellId, ?S2CELLID_0_ARGS_IS_VALID).
 
-face(S2CellId) when is_integer(S2CellId) ->
+face({s2cellid, S2CellId}) when is_integer(S2CellId) ->
     s2geo_nif:s2cellid_zero_args_fn(S2CellId, ?S2CELLID_0_ARGS_FACE).
 
-pos(S2CellId) when is_integer(S2CellId) ->
+pos({s2cellid, S2CellId}) when is_integer(S2CellId) ->
     s2geo_nif:s2cellid_zero_args_fn(S2CellId, ?S2CELLID_0_ARGS_POS).
 
-level(S2CellId) when is_integer(S2CellId) ->
+level({s2cellid, S2CellId}) when is_integer(S2CellId) ->
     s2geo_nif:s2cellid_zero_args_fn(S2CellId, ?S2CELLID_0_ARGS_LEVEL).
 
-get_size_ij(S2CellId) when is_integer(S2CellId) ->
+get_size_ij({s2cellid, S2CellId}) when is_integer(S2CellId) ->
     s2geo_nif:s2cellid_zero_args_fn(S2CellId, ?S2CELLID_0_ARGS_GET_SIZE_IJ).
-get_size_ij(S2CellId, Level) when is_integer(S2CellId) ->
+get_size_ij({s2cellid, S2CellId}, Level) when is_integer(S2CellId) ->
     s2geo_nif:s2cellid_one_arg_fn(S2CellId, ?S2CELLID_1_ARG_GET_SIZE_IJ, Level).
 
-get_size_st(S2CellId) when is_integer(S2CellId) ->
+get_size_st({s2cellid, S2CellId}) when is_integer(S2CellId) ->
     s2geo_nif:s2cellid_zero_args_fn(S2CellId, ?S2CELLID_0_ARGS_GET_SIZE_ST).
-get_size_st(S2CellId, Level) when is_integer(S2CellId) ->
+get_size_st({s2cellid, S2CellId}, Level) when is_integer(S2CellId) ->
     s2geo_nif:s2cellid_one_arg_fn(S2CellId, ?S2CELLID_1_ARG_GET_SIZE_ST, Level).
 
 
-is_leaf(S2CellId) when is_integer(S2CellId) ->
+is_leaf({s2cellid, S2CellId}) when is_integer(S2CellId) ->
     s2geo_nif:s2cellid_zero_args_fn(S2CellId, ?S2CELLID_0_ARGS_IS_LEAF).
 
-is_face(S2CellId) when is_integer(S2CellId) ->
+is_face({s2cellid, S2CellId}) when is_integer(S2CellId) ->
     s2geo_nif:s2cellid_zero_args_fn(S2CellId, ?S2CELLID_0_ARGS_IS_FACE).
 
-range_min(S2CellId) when is_integer(S2CellId) ->
-    s2geo_nif:s2cellid_zero_args_fn(S2CellId, ?S2CELLID_0_ARGS_RANGE_MIN).
+range_min({s2cellid, S2CellId}) when is_integer(S2CellId) ->
+    {s2cellid, s2geo_nif:s2cellid_zero_args_fn(S2CellId, ?S2CELLID_0_ARGS_RANGE_MIN)}.
 
-range_max(S2CellId) when is_integer(S2CellId) ->
-    s2geo_nif:s2cellid_zero_args_fn(S2CellId, ?S2CELLID_0_ARGS_RANGE_MAX).
+range_max({s2cellid, S2CellId}) when is_integer(S2CellId) ->
+    {s2cellid, s2geo_nif:s2cellid_zero_args_fn(S2CellId, ?S2CELLID_0_ARGS_RANGE_MAX)}.
 
-parent(S2CellId) when is_integer(S2CellId) ->
-    s2geo_nif:s2cellid_zero_args_fn(S2CellId, ?S2CELLID_0_ARGS_PARENT).
+parent({s2cellid, S2CellId}) when is_integer(S2CellId) ->
+    {s2cellid, s2geo_nif:s2cellid_zero_args_fn(S2CellId, ?S2CELLID_0_ARGS_PARENT)}.
 
-child_begin(S2CellId) when is_integer(S2CellId) ->
-    s2geo_nif:s2cellid_zero_args_fn(S2CellId, ?S2CELLID_0_ARGS_CHILD_BEGIN).
+child_begin({s2cellid, S2CellId}) when is_integer(S2CellId) ->
+    {s2cellid, s2geo_nif:s2cellid_zero_args_fn(S2CellId, ?S2CELLID_0_ARGS_CHILD_BEGIN)}.
 
-child_end(S2CellId) when is_integer(S2CellId) ->
-    s2geo_nif:s2cellid_zero_args_fn(S2CellId, ?S2CELLID_0_ARGS_CHILD_END).
+child_end({s2cellid, S2CellId}) when is_integer(S2CellId) ->
+    {s2cellid, s2geo_nif:s2cellid_zero_args_fn(S2CellId, ?S2CELLID_0_ARGS_CHILD_END)}.
 
-next(S2CellId) when is_integer(S2CellId) ->
-    s2geo_nif:s2cellid_zero_args_fn(S2CellId, ?S2CELLID_0_ARGS_NEXT).
+next({s2cellid, S2CellId}) when is_integer(S2CellId) ->
+    {s2cellid, s2geo_nif:s2cellid_zero_args_fn(S2CellId, ?S2CELLID_0_ARGS_NEXT)}.
 
-prev(S2CellId) when is_integer(S2CellId) ->
-    s2geo_nif:s2cellid_zero_args_fn(S2CellId, ?S2CELLID_0_ARGS_PREV).
+prev({s2cellid, S2CellId}) when is_integer(S2CellId) ->
+    {s2cellid, s2geo_nif:s2cellid_zero_args_fn(S2CellId, ?S2CELLID_0_ARGS_PREV)}.
 
-next_wrap(S2CellId) when is_integer(S2CellId) ->
-    s2geo_nif:s2cellid_zero_args_fn(S2CellId, ?S2CELLID_0_ARGS_NEXT_WRAP).
+next_wrap({s2cellid, S2CellId}) when is_integer(S2CellId) ->
+    {s2cellid, s2geo_nif:s2cellid_zero_args_fn(S2CellId, ?S2CELLID_0_ARGS_NEXT_WRAP)}.
 
-prev_wrap(S2CellId) when is_integer(S2CellId) ->
-    s2geo_nif:s2cellid_zero_args_fn(S2CellId, ?S2CELLID_0_ARGS_PREV_WRAP).
+prev_wrap({s2cellid, S2CellId}) when is_integer(S2CellId) ->
+    {s2cellid, s2geo_nif:s2cellid_zero_args_fn(S2CellId, ?S2CELLID_0_ARGS_PREV_WRAP)}.
 
-lsb(S2CellId) when is_integer(S2CellId) ->
+lsb({s2cellid, S2CellId}) when is_integer(S2CellId) ->
     s2geo_nif:s2cellid_zero_args_fn(S2CellId, ?S2CELLID_0_ARGS_LSB).
 
-to_token(S2CellId) when is_integer(S2CellId) ->
+to_token({s2cellid, S2CellId}) when is_integer(S2CellId) ->
     s2geo_nif:s2cellid_zero_args_fn(S2CellId, ?S2CELLID_0_ARGS_TO_TOKEN).
 
-to_string(S2CellId) when is_integer(S2CellId) ->
+to_string({s2cellid, S2CellId}) when is_integer(S2CellId) ->
     s2geo_nif:s2cellid_zero_args_fn(S2CellId, ?S2CELLID_0_ARGS_TO_STRING).
 
-to_lat_lng(S2CellId) when is_integer(S2CellId) ->
+to_lat_lng({s2cellid, S2CellId}) when is_integer(S2CellId) ->
     s2geo_nif:s2cellid_zero_args_fn(S2CellId, ?S2CELLID_0_ARGS_TO_LAT_LNG).
 
-child_position(S2CellId, Level) when is_integer(S2CellId) ->
+child_position({s2cellid, S2CellId}, Level) when is_integer(S2CellId) ->
     s2geo_nif:s2cellid_one_arg_fn(S2CellId, ?S2CELLID_1_ARG_CHILD_POSITION, Level).
 
-contains(S2CellId, OtherS2CellId) when is_integer(S2CellId) ->
+contains({s2cellid, S2CellId}, {s2cellid, OtherS2CellId}) when is_integer(S2CellId) ->
     s2geo_nif:s2cellid_one_arg_fn(S2CellId, ?S2CELLID_1_ARG_CONTAINS, OtherS2CellId).
 
-intersects(S2CellId, OtherS2CellId) when is_integer(S2CellId) ->
+intersects({s2cellid, S2CellId}, {s2cellid, OtherS2CellId}) when is_integer(S2CellId) ->
     s2geo_nif:s2cellid_one_arg_fn(S2CellId, ?S2CELLID_1_ARG_INTERSECTS, OtherS2CellId).
 
-parent(S2CellId, Level) when is_integer(S2CellId) ->
-    s2geo_nif:s2cellid_one_arg_fn(S2CellId, ?S2CELLID_1_ARG_PARENT, Level).
+parent({s2cellid, S2CellId}, Level) when is_integer(S2CellId) ->
+    {s2cellid, s2geo_nif:s2cellid_one_arg_fn(S2CellId, ?S2CELLID_1_ARG_PARENT, Level)}.
 
-child(S2CellId, Level) when is_integer(S2CellId) ->
-    s2geo_nif:s2cellid_one_arg_fn(S2CellId, ?S2CELLID_1_ARG_CHILD, Level).
+child({s2cellid, S2CellId}, Level) when is_integer(S2CellId) ->
+    {s2cellid, s2geo_nif:s2cellid_one_arg_fn(S2CellId, ?S2CELLID_1_ARG_CHILD, Level)}.
 
-child_begin(S2CellId, Level) when is_integer(S2CellId) ->
-    s2geo_nif:s2cellid_one_arg_fn(S2CellId, ?S2CELLID_1_ARG_CHILD_BEGIN, Level).
+child_begin({s2cellid, S2CellId}, Level) when is_integer(S2CellId) ->
+    {s2cellid, s2geo_nif:s2cellid_one_arg_fn(S2CellId, ?S2CELLID_1_ARG_CHILD_BEGIN, Level)}.
 
-child_end(S2CellId, Level) when is_integer(S2CellId) ->
-    s2geo_nif:s2cellid_one_arg_fn(S2CellId, ?S2CELLID_1_ARG_CHILD_END, Level).
+child_end({s2cellid, S2CellId}, Level) when is_integer(S2CellId) ->
+    {s2cellid, s2geo_nif:s2cellid_one_arg_fn(S2CellId, ?S2CELLID_1_ARG_CHILD_END, Level)}.
 
-advance(S2CellId, Level) when is_integer(S2CellId) ->
-    s2geo_nif:s2cellid_one_arg_fn(S2CellId, ?S2CELLID_1_ARG_ADVANCE, Level).
+advance({s2cellid, S2CellId}, Level) when is_integer(S2CellId) ->
+    {s2cellid, s2geo_nif:s2cellid_one_arg_fn(S2CellId, ?S2CELLID_1_ARG_ADVANCE, Level)}.
 
-advance_wrap(S2CellId, Level) when is_integer(S2CellId) ->
-    s2geo_nif:s2cellid_one_arg_fn(S2CellId, ?S2CELLID_1_ARG_ADVANCE_WRAP, Level).
+advance_wrap({s2cellid, S2CellId}, Level) when is_integer(S2CellId) ->
+    {s2cellid, s2geo_nif:s2cellid_one_arg_fn(S2CellId, ?S2CELLID_1_ARG_ADVANCE_WRAP, Level)}.

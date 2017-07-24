@@ -13,7 +13,11 @@
 
     s2cellid_zero_args_fn/2,
 
-    s2cellid_one_arg_fn/3
+    s2cellid_one_arg_fn/3,
+
+    s2latlngrect_constructor/1,
+    s2latlngrect_constructor/2,
+    s2latlngrect_constructor/3
     ]).
 
 %%====================================================================
@@ -29,6 +33,11 @@
 
 -define(APPNAME, s2geo).
 -define(LIBNAME, s2geo).
+
+
+%%====================================================================
+%% S2CellId functions
+%%====================================================================
 
 s2cellid_get_size_ij(_) ->
     not_loaded(?LINE).
@@ -57,6 +66,19 @@ s2cellid_zero_args_fn(_, _) ->
 s2cellid_one_arg_fn(_, _, _) ->
     not_loaded(?LINE).
 
+%%====================================================================
+%% S2LatLngRect functions
+%%====================================================================
+
+s2latlngrect_constructor(_) ->
+    not_loaded(?LINE).
+
+s2latlngrect_constructor(_, _) ->
+    not_loaded(?LINE).
+
+s2latlngrect_constructor(_, _, _) ->
+    not_loaded(?LINE).
+
 init() ->
     SoName = case code:priv_dir(?APPNAME) of
         {error, bad_name} ->
@@ -69,6 +91,7 @@ init() ->
         Dir ->
             filename:join(Dir, ?LIBNAME)
     end,
+    erlang:display(SoName),
     erlang:load_nif(SoName, 0).
 
 not_loaded(Line) ->

@@ -1,14 +1,13 @@
-{application, s2geo_nif,
- [{description, "An OTP library"},
+{application, s2geo,[
+  {description, "An OTP library"},
   {vsn, "0.1.0"},
   {registered, []},
-  {applications,
-   [kernel,
+  {applications, [
+    kernel,
     stdlib
-   ]},
+    ]},
   {env,[]},
   {modules, []},
-
   {maintainers, []},
   {licenses, []},
   {links, []}

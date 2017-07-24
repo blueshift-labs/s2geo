@@ -1,20 +1,13 @@
 #include "s2latlng.h"
 #include "s2cellid.h"
 
-#include "nifpp.h"
+#include "nifpp_utils.h"
 #include "s2geo_nif.h"
 #include "nif_s2cellid.h"
-#include "nif_utils.h"
-
 
 #define CHECK_ARGS_LENGTH(env, arg, len) \
     if(arg != len) \
         return enif_make_badarg(env)
-
-nifpp::TERM s2cellId_to_term(ErlNifEnv* env, S2CellId cellId) {
-    uint64 id = cellId.id();
-    return nifpp::make(env, static_cast<ErlNifUInt64>(id));
-}
 
 ERL_NIF_TERM s2cellid_get_size_ij(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
 {
@@ -23,9 +16,8 @@ ERL_NIF_TERM s2cellid_get_size_ij(ErlNifEnv* env, int argc, const ERL_NIF_TERM a
         int level = nifpp::get<int>(env, nifpp::TERM(argv[0]));
         return nifpp::make(env, S2CellId::GetSizeIJ(level));
     }
-    catch(nifpp::badarg) {
-        return enif_make_badarg(env);
-    }
+    catch(nifpp::badarg) {}
+    return enif_make_badarg(env);
 }
 
 ERL_NIF_TERM s2cellid_get_size_st(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
@@ -35,9 +27,8 @@ ERL_NIF_TERM s2cellid_get_size_st(ErlNifEnv* env, int argc, const ERL_NIF_TERM a
         int level = nifpp::get<int>(env, nifpp::TERM(argv[0]));
         return nifpp::make(env, S2CellId::GetSizeST(level));
     }
-    catch(nifpp::badarg) {
-        return enif_make_badarg(env);
-    }
+    catch(nifpp::badarg) {}
+    return enif_make_badarg(env);
 }
 
 
@@ -48,9 +39,8 @@ ERL_NIF_TERM s2cellid_lsb_for_level(ErlNifEnv* env, int argc, const ERL_NIF_TERM
         int level = nifpp::get<int>(env, nifpp::TERM(argv[0]));
         return nifpp::make(env, static_cast<ErlNifUInt64>( S2CellId::lsb_for_level(level) ));
     }
-    catch(nifpp::badarg) {
-        return enif_make_badarg(env);
-    }
+    catch(nifpp::badarg) {}
+    return enif_make_badarg(env);
 }
 
 
@@ -63,15 +53,19 @@ ERL_NIF_TERM s2cellid_constructor(ErlNifEnv* env, int argc, const ERL_NIF_TERM a
         auto option = static_cast<S2CellIdConstructors>( nifpp::get<int>(env, nifpp::TERM(argv[0]) ) );
         switch( option ) {
             case S2CellIdConstructors::none:
+            {
                 CHECK_ARGS_LENGTH(env, argc, 1);
-                return s2cellId_to_term(env, S2CellId::None());
+                return nifpp::make(env, S2CellId::None());
+            }
 
             case S2CellIdConstructors::sentinel:
+            {
                 CHECK_ARGS_LENGTH(env, argc, 1);
-                return s2cellId_to_term(env, S2CellId::Sentinel());
+                return nifpp::make(env, S2CellId::Sentinel());
+            }
 
             case S2CellIdConstructors::from_face_pos_level:
-                {
+            {
                 CHECK_ARGS_LENGTH(env, argc, 4);
 
                 int face = nifpp::get<int>(env, nifpp::TERM(argv[1]));
@@ -79,39 +73,39 @@ ERL_NIF_TERM s2cellid_constructor(ErlNifEnv* env, int argc, const ERL_NIF_TERM a
                 int level = nifpp::get<int>(env, nifpp::TERM(argv[3]));
 
                 S2CellId cellId  = S2CellId::FromFacePosLevel(face, static_cast<uint64>(pos), level);
-                return s2cellId_to_term(env, cellId);
-                }
+                return nifpp::make(env, cellId);
+            }
 
             case S2CellIdConstructors::from_lat_lng:
-                {
+            {
                 CHECK_ARGS_LENGTH(env, argc, 3);
                 double lat_degrees = nifpp::get<double>(env, nifpp::TERM(argv[1]));
                 double lng_degrees = nifpp::get<double>(env, nifpp::TERM(argv[2]));
 
                 S2LatLng latLng = S2LatLng::FromDegrees(lat_degrees, lng_degrees);
                 S2CellId cellId = S2CellId::FromLatLng(latLng);
-                return s2cellId_to_term(env, cellId);
-                }
+                return nifpp::make(env, cellId);
+            }
 
             case S2CellIdConstructors::begin:
                 {
                 CHECK_ARGS_LENGTH(env, argc, 2);
                 int level = nifpp::get<int>(env, nifpp::TERM(argv[1]));
-                return s2cellId_to_term(env, S2CellId::Begin(level));
+                return nifpp::make(env, S2CellId::Begin(level));
                 }
 
             case S2CellIdConstructors::end:
                 {
                 CHECK_ARGS_LENGTH(env, argc, 2);
                 int level = nifpp::get<int>(env, nifpp::TERM(argv[1]));
-                return s2cellId_to_term(env, S2CellId::End(level));
+                return nifpp::make(env, S2CellId::End(level));
                 }
 
             case S2CellIdConstructors::from_token:
                 {
                 CHECK_ARGS_LENGTH(env, argc, 2);
                 string token = nifpp::get<string>(env, nifpp::TERM(argv[1]));
-                return s2cellId_to_term(env, S2CellId::FromToken(token));
+                return nifpp::make(env, S2CellId::FromToken(token));
                 }
 
             case S2CellIdConstructors::from_face_ij:
@@ -122,7 +116,7 @@ ERL_NIF_TERM s2cellid_constructor(ErlNifEnv* env, int argc, const ERL_NIF_TERM a
                 int j    = nifpp::get<int>(env, nifpp::TERM(argv[3]));
 
                 S2CellId cellId = S2CellId::FromFaceIJ(face, i, j);
-                return s2cellId_to_term(env, cellId);
+                return nifpp::make(env, cellId);
                 }
 
             case S2CellIdConstructors::from_point:
@@ -133,9 +127,8 @@ ERL_NIF_TERM s2cellid_constructor(ErlNifEnv* env, int argc, const ERL_NIF_TERM a
         }
 
     }
-    catch(nifpp::badarg) {
-        return enif_make_badarg(env);
-    }
+    catch(nifpp::badarg) {}
+    return enif_make_badarg(env);
 }
 
 ERL_NIF_TERM s2cellid_zero_args_fn(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
@@ -187,31 +180,31 @@ ERL_NIF_TERM s2cellid_zero_args_fn(ErlNifEnv* env, int argc, const ERL_NIF_TERM 
                 return nifpp::make(env, s2cellid.is_face());
 
             case S2CellIdFunctionZeroArgs::range_min:
-                return s2cellId_to_term(env, s2cellid.range_min());
+                return nifpp::make(env, s2cellid.range_min());
 
             case S2CellIdFunctionZeroArgs::range_max:
-                return s2cellId_to_term(env, s2cellid.range_max());
+                return nifpp::make(env, s2cellid.range_max());
 
             case S2CellIdFunctionZeroArgs::parent:
-                return s2cellId_to_term(env, s2cellid.parent());
+                return nifpp::make(env, s2cellid.parent());
 
             case S2CellIdFunctionZeroArgs::child_begin:
-                return s2cellId_to_term(env, s2cellid.child_begin());
+                return nifpp::make(env, s2cellid.child_begin());
 
             case S2CellIdFunctionZeroArgs::child_end:
-                return s2cellId_to_term(env, s2cellid.child_end());
+                return nifpp::make(env, s2cellid.child_end());
 
             case S2CellIdFunctionZeroArgs::next:
-                return s2cellId_to_term(env, s2cellid.next());
+                return nifpp::make(env, s2cellid.next());
 
             case S2CellIdFunctionZeroArgs::prev:
-                return s2cellId_to_term(env, s2cellid.prev());
+                return nifpp::make(env, s2cellid.prev());
 
             case S2CellIdFunctionZeroArgs::next_wrap:
-                return s2cellId_to_term(env, s2cellid.next_wrap());
+                return nifpp::make(env, s2cellid.next_wrap());
 
             case S2CellIdFunctionZeroArgs::prev_wrap:
-                return s2cellId_to_term(env, s2cellid.prev_wrap());
+                return nifpp::make(env, s2cellid.prev_wrap());
 
             case S2CellIdFunctionZeroArgs::to_token:
                 return nifpp::make(env, s2cellid.ToToken());
@@ -227,9 +220,8 @@ ERL_NIF_TERM s2cellid_zero_args_fn(ErlNifEnv* env, int argc, const ERL_NIF_TERM 
         }
         return ATOMS.atomError;
     }
-    catch(nifpp::badarg) {
-        return enif_make_badarg(env);
-    }
+    catch(nifpp::badarg) {}
+    return enif_make_badarg(env);
 }
 
 ERL_NIF_TERM s2cellid_one_arg_fn(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
@@ -279,37 +271,37 @@ ERL_NIF_TERM s2cellid_one_arg_fn(ErlNifEnv* env, int argc, const ERL_NIF_TERM ar
             case S2CellIdFunctionOneArg::parent:
                 {
                 int level = nifpp::get<int>(env, nifpp::TERM(argv[2]));
-                return s2cellId_to_term(env, s2cellid.parent(level));
+                return nifpp::make(env, s2cellid.parent(level));
                 }
 
             case S2CellIdFunctionOneArg::child:
                 {
                 int level = nifpp::get<int>(env, nifpp::TERM(argv[2]));
-                return s2cellId_to_term(env, s2cellid.child(level));
+                return nifpp::make(env, s2cellid.child(level));
                 }
 
             case S2CellIdFunctionOneArg::child_begin:
                 {
                 int level = nifpp::get<int>(env, nifpp::TERM(argv[2]));
-                return s2cellId_to_term(env, s2cellid.child_begin(level));
+                return nifpp::make(env, s2cellid.child_begin(level));
                 }
 
             case S2CellIdFunctionOneArg::child_end:
                 {
                 int level = nifpp::get<int>(env, nifpp::TERM(argv[2]));
-                return s2cellId_to_term(env, s2cellid.child_end(level));
+                return nifpp::make(env, s2cellid.child_end(level));
                 }
 
             case S2CellIdFunctionOneArg::advance:
                 {
                 auto int64_level = nifpp::get<ErlNifSInt64>(env, nifpp::TERM(argv[2]));
-                return s2cellId_to_term(env, s2cellid.advance(static_cast<int64>(int64_level)));
+                return nifpp::make(env, s2cellid.advance(static_cast<int64>(int64_level)));
                 }
 
             case S2CellIdFunctionOneArg::advance_wrap:
                 {
                 auto int64_level = nifpp::get<ErlNifSInt64>(env, nifpp::TERM(argv[2]));
-                return s2cellId_to_term(env, s2cellid.advance_wrap(static_cast<int64>(int64_level)));
+                return nifpp::make(env, s2cellid.advance_wrap(static_cast<int64>(int64_level)));
                 }
 
             default:
@@ -317,7 +309,6 @@ ERL_NIF_TERM s2cellid_one_arg_fn(ErlNifEnv* env, int argc, const ERL_NIF_TERM ar
         }
         return ATOMS.atomError;
     }
-    catch(nifpp::badarg) {
-        return enif_make_badarg(env);
-    }
+    catch(nifpp::badarg) {}
+    return enif_make_badarg(env);
 }

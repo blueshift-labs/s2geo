@@ -27,14 +27,14 @@ end_per_suite(_Config) ->
     _Config.
 
 create_s2cell(_Config) ->
-    9263400817301046493 = s2geo_nif:s2cellid_new_from_lat_long_degrees(37.2271363, -121.9877517).
+    9263400817301046493 = s2cellid:new_from_lat_lng_degrees(37.2271363, -121.9877517).
 
 s2cell_is_valid(_Config) ->
-    true = s2geo_nif:s2cellid_is_valid(1),
-    false = s2geo_nif:s2cellid_is_valid(2),
-    true = s2geo_nif:s2cellid_is_valid(3),
-    true = s2geo_nif:s2cellid_is_valid(4),
-    true = s2geo_nif:s2cellid_is_valid(5),
-    false = s2geo_nif:s2cellid_is_valid(6),
-    true = s2geo_nif:s2cellid_is_valid(7),
-    false = s2geo_nif:s2cellid_is_valid(8).
+    true = s2cellid:is_valid(1),
+    false = s2cellid:is_valid(2),
+    true = s2cellid:is_valid(3),
+    true = s2cellid:is_valid(4),
+    true = s2cellid:is_valid(5),
+    false = s2cellid:is_valid(6),
+    true = s2cellid:is_valid(7),
+    false = s2cellid:is_valid(8).

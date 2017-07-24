@@ -12,7 +12,9 @@ struct atoms
     ERL_NIF_TERM atomNull;
     ERL_NIF_TERM atomBadArg;
     ERL_NIF_TERM atomOptions;
+    ERL_NIF_TERM atomNotImplemented;
 };
 
 extern atoms ATOMS;
+
 #endif
