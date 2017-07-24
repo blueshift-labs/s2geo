@@ -43,8 +43,8 @@ static int on_nif_load(ErlNifEnv* env, void** priv_data, ERL_NIF_TERM load_info)
 }
 
 static ErlNifFunc nif_funcs[] = {
-    {"s2cellid_get_size_ij", 1, s2cellid_get_size_ij},
-    {"s2cellid_get_size_st", 1, s2cellid_get_size_st},
+    {"s2cellid_get_size_ij",   1, s2cellid_get_size_ij},
+    {"s2cellid_get_size_st",   1, s2cellid_get_size_st},
     {"s2cellid_lsb_for_level", 1, s2cellid_lsb_for_level},
 
     {"s2cellid_constructor", 1, s2cellid_constructor},
@@ -55,16 +55,23 @@ static ErlNifFunc nif_funcs[] = {
     {"s2cellid_zero_args_fn", 2, s2cellid_zero_args_fn},
     {"s2cellid_one_arg_fn",   3, s2cellid_one_arg_fn},
 
-    {"s2latlngrect_constructor", 1, s2latlngrect_constructor},
-    {"s2latlngrect_constructor", 2, s2latlngrect_constructor},
-    {"s2latlngrect_constructor", 3, s2latlngrect_constructor},
+    {"s2latlngrect_constructor",  1, s2latlngrect_constructor},
+    {"s2latlngrect_constructor",  2, s2latlngrect_constructor},
+    {"s2latlngrect_constructor",  3, s2latlngrect_constructor},
+    {"s2latlngrect_methods",      2, s2latlngrect_methods},
+    {"s2latlngrect_methods",      3, s2latlngrect_methods},
+
+    {"s2latlngrect_get_covering", 3, s2region_coverer_get_covering_for_s2latlngrect},
+    {"s2latlngrect_get_covering", 4, s2region_coverer_get_covering_for_s2latlngrect},
 
 
-    {"s2cellunion_constructor", 2, s2cellunion_constructor},
-    {"s2cellunion_constructor", 3, s2cellunion_constructor},
-    {"s2cellunion_methods",     2, s2cellunion_methods},
-    {"s2cellunion_methods",     3, s2cellunion_methods},
-    {"s2cellunion_methods",     4, s2cellunion_methods},
+    {"s2cellunion_constructor",  2, s2cellunion_constructor},
+    {"s2cellunion_constructor",  3, s2cellunion_constructor},
+    {"s2cellunion_methods",      2, s2cellunion_methods},
+    {"s2cellunion_methods",      3, s2cellunion_methods},
+    {"s2cellunion_methods",      4, s2cellunion_methods},
+    {"s2cellunion_get_covering", 3, s2region_coverer_get_covering_for_s2cellunion},
+    {"s2cellunion_get_covering", 4, s2region_coverer_get_covering_for_s2cellunion},
 
 };
 

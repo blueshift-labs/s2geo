@@ -40,6 +40,7 @@ enum class S2CellUnionMethods {
 
 ERL_NIF_TERM s2cellunion_constructor(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
 ERL_NIF_TERM s2cellunion_methods(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2region_coverer_get_covering_for_s2cellunion(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
 
 #endif
 

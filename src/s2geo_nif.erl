@@ -17,7 +17,20 @@
 
     s2latlngrect_constructor/1,
     s2latlngrect_constructor/2,
-    s2latlngrect_constructor/3
+    s2latlngrect_constructor/3,
+    s2latlngrect_methods/2,
+    s2latlngrect_methods/3,
+    s2latlngrect_get_covering/3,
+    s2latlngrect_get_covering/4,
+
+    s2cellunion_constructor/2,
+    s2cellunion_constructor/3,
+    s2cellunion_methods/2,
+    s2cellunion_methods/3,
+    s2cellunion_methods/4,
+    s2cellunion_get_covering/3,
+    s2cellunion_get_covering/4
+
     ]).
 
 %%====================================================================
@@ -77,6 +90,40 @@ s2latlngrect_constructor(_, _) ->
     not_loaded(?LINE).
 
 s2latlngrect_constructor(_, _, _) ->
+    not_loaded(?LINE).
+
+s2latlngrect_methods(_, _) ->
+    not_loaded(?LINE).
+
+s2latlngrect_methods(_, _, _) ->
+    not_loaded(?LINE).
+
+s2latlngrect_get_covering(_, _, _, _) ->
+    not_loaded(?LINE).
+
+s2latlngrect_get_covering(_, _, _) ->
+    not_loaded(?LINE).
+
+
+s2cellunion_constructor(_, _) ->
+    not_loaded(?LINE).
+
+s2cellunion_constructor(_, _, _) ->
+    not_loaded(?LINE).
+
+s2cellunion_methods(_, _) ->
+    not_loaded(?LINE).
+
+s2cellunion_methods(_, _, _) ->
+    not_loaded(?LINE).
+
+s2cellunion_methods(_, _, _, _) ->
+    not_loaded(?LINE).
+
+s2cellunion_get_covering(_, _, _) ->
+    not_loaded(?LINE).
+
+s2cellunion_get_covering(_, _, _, _) ->
     not_loaded(?LINE).
 
 init() ->

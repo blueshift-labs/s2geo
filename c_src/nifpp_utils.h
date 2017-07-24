@@ -37,6 +37,4 @@ nifpp::TERM make(ErlNifEnv *env, const S2CellId &var);
 
 #include "nifpp.h"
 
-S2LatLng get_normalized_s2latlng_from_term(ErlNifEnv* env, const ERL_NIF_TERM &arg);
-
 #endif

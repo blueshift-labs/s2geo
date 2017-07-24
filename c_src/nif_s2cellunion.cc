@@ -1,6 +1,7 @@
 #include "s2cell.h"
 #include "s2cellunion.h"
 #include "s2latlngrect.h"
+#include "s2regioncoverer.h"
 #include "util/coding/coder.h"
 
 #include "s2geo_nif.h"
@@ -280,6 +281,71 @@ ERL_NIF_TERM s2cellunion_methods(ErlNifEnv* env, int argc, const ERL_NIF_TERM ar
                 self->Encode(&encoder);
                 std::string encoded(encoder.base(), encoder.length());
                 return nifpp::make(env, encoded);
+            }
+
+            default:
+                return ATOMS.atomNotImplemented;
+        }
+    }
+    catch(nifpp::badarg) {}
+    return enif_make_badarg(env);
+}
+
+ERL_NIF_TERM s2region_coverer_get_covering_for_s2cellunion(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]) {
+    if(argc < 3) // Need atleast one arg
+        return enif_make_badarg(env);
+    try{
+        S2CellUnion *self;
+        nifpp::get_throws(env, argv[0], self);
+        auto covering_type = static_cast<S2RegionCoveringType>( nifpp::get<int>(env, nifpp::TERM(argv[1])) );
+        S2RegionCoverer coverer;
+
+        auto max_cells = nifpp::get<int>(env, argv[2]);
+        if(max_cells > 0)
+        {
+            coverer.set_max_cells(max_cells);
+        }
+
+
+        if (argc == 4)
+        {
+            int min_level;
+            int max_level;
+            auto levels = make_tuple(ref(min_level), ref(max_level));
+            nifpp::get(env, argv[3], levels);
+            coverer.set_min_level(min_level);
+            coverer.set_max_level(max_level);
+        }
+
+        switch( covering_type ) {
+            case S2RegionCoveringType::cellid_covering:
+            {
+                vector<S2CellId> covering;
+                coverer.GetCovering(*self, &covering);
+                return nifpp::make(env, covering);
+            }
+
+            case S2RegionCoveringType::cellid_interior_covering:
+            {
+                vector<S2CellId> covering;
+                coverer.GetInteriorCovering(*self, &covering);
+                return nifpp::make(env, covering);
+            }
+            case S2RegionCoveringType::cell_union_covering:
+            {
+                nifpp::resource_ptr<S2CellUnion> s2cellunion_ptr = nifpp::construct_resource<S2CellUnion>();
+                S2CellUnion *covering = s2cellunion_ptr.get();
+
+                coverer.GetCellUnion(*self, covering);
+                return nifpp::make(env, s2cellunion_ptr);
+            }
+            case S2RegionCoveringType::interior_cell_union_covering:
+            {
+                nifpp::resource_ptr<S2CellUnion> s2cellunion_ptr = nifpp::construct_resource<S2CellUnion>();
+                S2CellUnion *covering = s2cellunion_ptr.get();
+
+                coverer.GetInteriorCellUnion(*self, covering);
+                return nifpp::make(env, s2cellunion_ptr);
             }
 
             default:

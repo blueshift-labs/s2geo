@@ -1,31 +1,3 @@
-template<typename T>
-ERL_NIF_TERM s2region_coverer_get_covering(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]) {
-    if(argc < 2) // Need atleast one arg
-        return enif_make_badarg(env);
-    try{
-        T *self;
-        nifpp::get_throws(env, argv[0], self);
-
-        S2RegionCoverer coverer;
-        auto max_cells = nifpp::get<int>(env, argv[1]);
-
-        int min_level;
-        int max_level;
-        auto levels = make_tuple(ref(min_level), ref(max_level));
-        nifpp::get(env, argv[2], levels);
-
-        coverer.set_max_cells(max_cells);
-        coverer.set_min_level(min_level);
-        coverer.set_max_level(max_level);
-
-        vector<S2CellId> covering;
-        coverer.GetCovering(*self, &covering);
-        return nifpp::make(env, covering);
-        }
-    }
-    catch(nifpp::badarg) {}
-    return enif_make_badarg(env);
-}
 
 // //
 // // S2RegionCoverer coverer;

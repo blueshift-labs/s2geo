@@ -9,7 +9,6 @@ enum class S2LatLngRectConstructors {
   from_center_size      = 5,
   from_point            = 6,
   from_point_pair       = 7,
-
   decode                = 10,
 };
 
@@ -71,6 +70,7 @@ enum class S2LatLngRectMethods {
 
 ERL_NIF_TERM s2latlngrect_constructor(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
 ERL_NIF_TERM s2latlngrect_methods(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2region_coverer_get_covering_for_s2latlngrect(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
 
 #endif
 
