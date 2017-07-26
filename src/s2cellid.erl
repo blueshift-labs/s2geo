@@ -2,20 +2,21 @@
 
 -include("s2cellid_internals.hrl").
 
+
 %% API exports
 -export([
-    s2cellid_get_size_ij/1,
-    s2cellid_get_size_st/1,
-    s2cellid_lsb_for_level/1,
-
     new/0,
-    new_sentinel/0,
-    new_from_lat_lng_degrees/2,
+    sentinel/0,
+    new_from_lat_lng/1,
     new_from_face_pos_level/3,
     new_from_face_ij/3,
     level_begin/1,
     level_end/1,
     from_token/1,
+
+    max_level/0,
+    num_faces/0,
+    id/1,
 
     is_valid/1,
     face/1,
@@ -55,27 +56,24 @@
     advance_wrap/2
     ]).
 
+-compile({inline, [max_level/0, num_faces/0, id/1]}).
+
+max_level() -> 30.
+num_faces() -> 6.
+id({s2cellid, Id}) -> Id.
+
 %%====================================================================
 %% API functions
 %%====================================================================
 
-s2cellid_get_size_ij(Level) ->
-  s2geo_nif:s2cellid_get_size_ij(Level).
-
-s2cellid_get_size_st(Level) ->
-  s2geo_nif:s2cellid_get_size_st(Level).
-
-s2cellid_lsb_for_level(Level) ->
-  s2geo_nif:s2cellid_lsb_for_level(Level).
-
 new() ->
   {s2cellid, s2geo_nif:s2cellid_constructor(?S2CELLID_CONSTRUCTOR_NONE)}.
 
-new_sentinel() ->
+sentinel() ->
   {s2cellid, s2geo_nif:s2cellid_constructor(?S2CELLID_CONSTRUCTOR_SENTINEL)}.
 
-new_from_lat_lng_degrees(Latitude, Longitude) ->
-    {s2cellid, s2geo_nif:s2cellid_constructor(?S2CELLID_CONSTRUCTOR_FROM_LAT_LNG, Latitude, Longitude)}.
+new_from_lat_lng({Latitude, Longitude}) ->
+    {s2cellid, s2geo_nif:s2cellid_constructor(?S2CELLID_CONSTRUCTOR_FROM_LAT_LNG, s2geo:to_float({Latitude, Longitude}) )}.
 
 new_from_face_pos_level(Face, Pos, Level) when is_integer(Face), is_integer(Level) ->
     {s2cellid, s2geo_nif:s2cellid_constructor(?S2CELLID_CONSTRUCTOR_FROM_FACE_POS_LEVEL, Face, Pos, Level)}.
@@ -89,7 +87,7 @@ level_begin(Level) when is_integer(Level) ->
 level_end(Level) when is_integer(Level) ->
     {s2cellid, s2geo_nif:s2cellid_constructor(?S2CELLID_CONSTRUCTOR_END, Level)}.
 
-from_token(Token) when is_binary(Token) ->
+from_token(Token) ->
     {s2cellid, s2geo_nif:s2cellid_constructor(?S2CELLID_CONSTRUCTOR_FROM_TOKEN, Token)}.
 
 
@@ -105,13 +103,21 @@ pos({s2cellid, S2CellId}) when is_integer(S2CellId) ->
 level({s2cellid, S2CellId}) when is_integer(S2CellId) ->
     s2geo_nif:s2cellid_zero_args_fn(S2CellId, ?S2CELLID_0_ARGS_LEVEL).
 
+
 get_size_ij({s2cellid, S2CellId}) when is_integer(S2CellId) ->
-    s2geo_nif:s2cellid_zero_args_fn(S2CellId, ?S2CELLID_0_ARGS_GET_SIZE_IJ).
+    s2geo_nif:s2cellid_zero_args_fn(S2CellId, ?S2CELLID_0_ARGS_GET_SIZE_IJ);
+get_size_ij(Level) ->
+  s2geo_nif:s2cellid_get_size_ij(Level).
+
 get_size_ij({s2cellid, S2CellId}, Level) when is_integer(S2CellId) ->
     s2geo_nif:s2cellid_one_arg_fn(S2CellId, ?S2CELLID_1_ARG_GET_SIZE_IJ, Level).
 
+
 get_size_st({s2cellid, S2CellId}) when is_integer(S2CellId) ->
-    s2geo_nif:s2cellid_zero_args_fn(S2CellId, ?S2CELLID_0_ARGS_GET_SIZE_ST).
+    s2geo_nif:s2cellid_zero_args_fn(S2CellId, ?S2CELLID_0_ARGS_GET_SIZE_ST);
+get_size_st(Level) ->
+  s2geo_nif:s2cellid_get_size_st(Level).
+
 get_size_st({s2cellid, S2CellId}, Level) when is_integer(S2CellId) ->
     s2geo_nif:s2cellid_one_arg_fn(S2CellId, ?S2CELLID_1_ARG_GET_SIZE_ST, Level).
 
@@ -150,7 +156,9 @@ prev_wrap({s2cellid, S2CellId}) when is_integer(S2CellId) ->
     {s2cellid, s2geo_nif:s2cellid_zero_args_fn(S2CellId, ?S2CELLID_0_ARGS_PREV_WRAP)}.
 
 lsb({s2cellid, S2CellId}) when is_integer(S2CellId) ->
-    s2geo_nif:s2cellid_zero_args_fn(S2CellId, ?S2CELLID_0_ARGS_LSB).
+    s2geo_nif:s2cellid_zero_args_fn(S2CellId, ?S2CELLID_0_ARGS_LSB);
+lsb(Level) ->
+    s2geo_nif:s2cellid_lsb_for_level(Level).
 
 to_token({s2cellid, S2CellId}) when is_integer(S2CellId) ->
     s2geo_nif:s2cellid_zero_args_fn(S2CellId, ?S2CELLID_0_ARGS_TO_TOKEN).

@@ -10,8 +10,12 @@ Build
 $ rebar3 compile
 
 $ rebar3 shell
-s2cellid:new_from_lat_lng_degrees(37.2271363, -121.9877517).
+s2cellid:new({51.5001525, -0.1262355}).
 
 
 {s2latlngrect, LatLng}=s2latlngrect:new_from_lat_lng_degree({33.0, -122.0},{33.1, -122.1}).
-s2latlngrect:get_covering({s2latlngrect, LatLng}, 6, {8, 12})
+{covering, Cellids] = s2latlngrect:get_covering({s2latlngrect, LatLng}, 6, {8, 12}).
+s2cellid:to_lat_lng(864691128455135232).
+
+
+

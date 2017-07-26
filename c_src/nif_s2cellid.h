@@ -35,6 +35,7 @@ enum class S2CellIdFunctionZeroArgs {
   to_token      = 29,
   to_string     = 30,
   lsb           = 31,
+
  };
 
 enum class S2CellIdFunctionOneArg {

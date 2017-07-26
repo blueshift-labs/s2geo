@@ -30,7 +30,6 @@
     s2cellunion_methods/4,
     s2cellunion_get_covering/3,
     s2cellunion_get_covering/4
-
     ]).
 
 %%====================================================================
@@ -138,7 +137,6 @@ init() ->
         Dir ->
             filename:join(Dir, ?LIBNAME)
     end,
-    erlang:display(SoName),
     erlang:load_nif(SoName, 0).
 
 not_loaded(Line) ->

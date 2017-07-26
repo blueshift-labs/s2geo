@@ -11,4 +11,5 @@ const char kAtomNull[] = "null";
 const char kAtomBadArg[] = "badarg";
 const char kAtomOptions[] = "badoption";
 const char kAtomNotImplemented[] =  "not_implemented";
+const char kAtomInternalError[] =  "internal_error";
 }

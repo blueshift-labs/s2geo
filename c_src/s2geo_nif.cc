@@ -11,7 +11,6 @@
 #include "s2latlngrect.h"
 
 atoms ATOMS;
-//extern "C" {
 
 ERL_NIF_TERM make_atom(ErlNifEnv* env, const char* name)
 {
@@ -33,6 +32,7 @@ static int on_nif_load(ErlNifEnv* env, void** priv_data, ERL_NIF_TERM load_info)
     ATOMS.atomBadArg = make_atom(env, s2geo::kAtomBadArg);
     ATOMS.atomOptions = make_atom(env, s2geo::kAtomOptions);
     ATOMS.atomNotImplemented = make_atom(env, s2geo::kAtomNotImplemented);
+    ATOMS.atomInternalError = make_atom(env, s2geo::kAtomInternalError);
 
     nifpp::register_resource<S2Cell>(env, nullptr, "S2Cell");
     nifpp::register_resource<S2LatLng>(env, nullptr, "S2LatLng");
@@ -76,5 +76,3 @@ static ErlNifFunc nif_funcs[] = {
 };
 
 ERL_NIF_INIT(s2geo_nif, nif_funcs, on_nif_load, NULL, NULL, NULL);
-
-//}

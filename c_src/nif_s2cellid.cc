@@ -17,6 +17,7 @@ ERL_NIF_TERM s2cellid_get_size_ij(ErlNifEnv* env, int argc, const ERL_NIF_TERM a
         return nifpp::make(env, S2CellId::GetSizeIJ(level));
     }
     catch(nifpp::badarg) {}
+    catch(...){ return ATOMS.atomInternalError;}
     return enif_make_badarg(env);
 }
 
@@ -28,6 +29,7 @@ ERL_NIF_TERM s2cellid_get_size_st(ErlNifEnv* env, int argc, const ERL_NIF_TERM a
         return nifpp::make(env, S2CellId::GetSizeST(level));
     }
     catch(nifpp::badarg) {}
+    catch(...){ return ATOMS.atomInternalError;}
     return enif_make_badarg(env);
 }
 
@@ -40,6 +42,7 @@ ERL_NIF_TERM s2cellid_lsb_for_level(ErlNifEnv* env, int argc, const ERL_NIF_TERM
         return nifpp::make(env, static_cast<ErlNifUInt64>( S2CellId::lsb_for_level(level) ));
     }
     catch(nifpp::badarg) {}
+    catch(...){ return ATOMS.atomInternalError;}
     return enif_make_badarg(env);
 }
 
@@ -78,11 +81,8 @@ ERL_NIF_TERM s2cellid_constructor(ErlNifEnv* env, int argc, const ERL_NIF_TERM a
 
             case S2CellIdConstructors::from_lat_lng:
             {
-                CHECK_ARGS_LENGTH(env, argc, 3);
-                double lat_degrees = nifpp::get<double>(env, nifpp::TERM(argv[1]));
-                double lng_degrees = nifpp::get<double>(env, nifpp::TERM(argv[2]));
-
-                S2LatLng latLng = S2LatLng::FromDegrees(lat_degrees, lng_degrees);
+                CHECK_ARGS_LENGTH(env, argc, 2);
+                auto latLng = nifpp::get<S2LatLng>(env, argv[1]);
                 S2CellId cellId = S2CellId::FromLatLng(latLng);
                 return nifpp::make(env, cellId);
             }
@@ -128,6 +128,8 @@ ERL_NIF_TERM s2cellid_constructor(ErlNifEnv* env, int argc, const ERL_NIF_TERM a
 
     }
     catch(nifpp::badarg) {}
+    catch(...){ return ATOMS.atomInternalError;}
+
     return enif_make_badarg(env);
 }
 
@@ -138,10 +140,8 @@ ERL_NIF_TERM s2cellid_zero_args_fn(ErlNifEnv* env, int argc, const ERL_NIF_TERM 
         auto value = nifpp::get<ErlNifUInt64>(env, nifpp::TERM(argv[0]));
         auto s2cellid = S2CellId(static_cast<uint64>(value));
 
+
         auto option = static_cast<S2CellIdFunctionZeroArgs>(nifpp::get<int>(env, nifpp::TERM(argv[1])));
-        if (option != S2CellIdFunctionZeroArgs::is_valid && !s2cellid.is_valid()){
-            return ATOMS.atomBadArg;
-        }
 
         switch( option ) {
             case S2CellIdFunctionZeroArgs::is_valid:
@@ -151,12 +151,7 @@ ERL_NIF_TERM s2cellid_zero_args_fn(ErlNifEnv* env, int argc, const ERL_NIF_TERM 
                 return ATOMS.atomFalse;
 
             case S2CellIdFunctionZeroArgs::to_lat_lng:
-                {
-                S2LatLng lat_lng = s2cellid.ToLatLng();
-                double lat_degrees = lat_lng.lat().degrees();
-                double lng_degrees = lat_lng.lng().degrees();
-                return nifpp::make(env, std::make_tuple(lat_degrees, lng_degrees));
-                }
+                return nifpp::make(env, s2cellid.ToLatLng());
 
             case S2CellIdFunctionZeroArgs::face:
                 return nifpp::make(env, s2cellid.face());
@@ -221,6 +216,8 @@ ERL_NIF_TERM s2cellid_zero_args_fn(ErlNifEnv* env, int argc, const ERL_NIF_TERM 
         return ATOMS.atomError;
     }
     catch(nifpp::badarg) {}
+    catch(...){ return ATOMS.atomInternalError;}
+
     return enif_make_badarg(env);
 }
 
@@ -230,9 +227,6 @@ ERL_NIF_TERM s2cellid_one_arg_fn(ErlNifEnv* env, int argc, const ERL_NIF_TERM ar
     try{
         auto value = nifpp::get<ErlNifUInt64>(env, nifpp::TERM(argv[0]));
         auto s2cellid = S2CellId(static_cast<uint64>(value));
-        if (!s2cellid.is_valid()){
-            return ATOMS.atomBadArg;
-        }
 
         auto option = static_cast<S2CellIdFunctionOneArg>(nifpp::get<int>(env, nifpp::TERM(argv[1])));
         switch( option ) {
@@ -310,5 +304,7 @@ ERL_NIF_TERM s2cellid_one_arg_fn(ErlNifEnv* env, int argc, const ERL_NIF_TERM ar
         return ATOMS.atomError;
     }
     catch(nifpp::badarg) {}
+    catch(...){ return ATOMS.atomInternalError;}
+
     return enif_make_badarg(env);
 }

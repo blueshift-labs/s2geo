@@ -111,6 +111,8 @@ ERL_NIF_TERM s2latlngrect_constructor(ErlNifEnv* env, int argc, const ERL_NIF_TE
 
     }
     catch(nifpp::badarg) {}
+    catch(...){ return ATOMS.atomInternalError;}
+
     return enif_make_badarg(env);
 }
 
@@ -446,6 +448,8 @@ ERL_NIF_TERM s2latlngrect_methods(ErlNifEnv* env, int argc, const ERL_NIF_TERM a
         }
     }
     catch(nifpp::badarg) {}
+    catch(...){ return ATOMS.atomInternalError;}
+
     return enif_make_badarg(env);
 }
 
@@ -512,5 +516,7 @@ ERL_NIF_TERM s2region_coverer_get_covering_for_s2latlngrect(ErlNifEnv* env, int 
         }
     }
     catch(nifpp::badarg) {}
+    catch(...){ return ATOMS.atomInternalError;}
+
     return enif_make_badarg(env);
 }

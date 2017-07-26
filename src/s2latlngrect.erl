@@ -5,8 +5,8 @@
 
 %% API exports
 -export([
-    new_from_lat_lng_degree/2,
     new/0,
+    new/2,
     new_from_center_size/2,
     empty/0,
     full/0,
@@ -72,7 +72,7 @@
 %% API functions
 %%====================================================================
 
-new_from_lat_lng_degree({LoLatitude, LoLongitude},
+new({LoLatitude, LoLongitude},
                         {HiLatitude, HiLongitude}) ->
   LatLngRect = s2geo_nif:s2latlngrect_constructor(?S2LATLNGRECT_FROM_LAT_LNG_DEGREE,
                                      {LoLatitude, LoLongitude},
@@ -89,7 +89,6 @@ new_from_center_size({CenterLatitude, CenterLongitude},
                                                   {CenterLatitude, CenterLongitude},
                                                   {SizeLatitude, SizeLongitude}),
   {s2latlngrect, LatLngRect}.
-
 
 empty() -> new().
 

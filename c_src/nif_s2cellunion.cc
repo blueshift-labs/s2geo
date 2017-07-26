@@ -74,6 +74,8 @@ ERL_NIF_TERM s2cellunion_constructor(ErlNifEnv* env, int argc, const ERL_NIF_TER
 
     }
     catch(nifpp::badarg) {}
+    catch(...){ return ATOMS.atomInternalError;}
+
     return enif_make_badarg(env);
 }
 
@@ -288,6 +290,8 @@ ERL_NIF_TERM s2cellunion_methods(ErlNifEnv* env, int argc, const ERL_NIF_TERM ar
         }
     }
     catch(nifpp::badarg) {}
+    catch(...){ return ATOMS.atomInternalError;}
+
     return enif_make_badarg(env);
 }
 
@@ -353,6 +357,8 @@ ERL_NIF_TERM s2region_coverer_get_covering_for_s2cellunion(ErlNifEnv* env, int a
         }
     }
     catch(nifpp::badarg) {}
+    catch(...){ return ATOMS.atomInternalError;}
+
     return enif_make_badarg(env);
 }
 

@@ -5,6 +5,7 @@
 int nifpp::get(ErlNifEnv *env, ERL_NIF_TERM term, S2LatLng &var){
     double lat;
     double lng;
+
     auto lat_lng_tuple = make_tuple(ref(lat), ref(lng));
 
     int res = nifpp::get(env, term, lat_lng_tuple);
@@ -15,19 +16,21 @@ int nifpp::get(ErlNifEnv *env, ERL_NIF_TERM term, S2LatLng &var){
 }
 
 nifpp::TERM nifpp::make(ErlNifEnv *env, const S2LatLng &var){
-    auto coords = var.coords();
-    return nifpp::make(env, std::make_tuple(coords[0], coords[1]));
+    auto pt = var.Normalized();
+    double lat = pt.lat().degrees();
+    double lng = pt.lng().degrees();
+    return nifpp::make(env, std::make_tuple(lat, lng));
 }
 
 int nifpp::get(ErlNifEnv *env, ERL_NIF_TERM term, S1Angle &var){
-    double radians = nifpp::get<double>(env, nifpp::TERM(term));
-    var = S1Angle::Radians(radians);
+    double degrees = nifpp::get<double>(env, nifpp::TERM(term));
+    var = S1Angle::Degrees(degrees);
     return true;
 }
 
 nifpp::TERM nifpp::make(ErlNifEnv *env, const S1Angle &var){
-    double radians = var.radians();
-    return nifpp::make(env, radians);
+    double degrees = var.degrees();
+    return nifpp::make(env, degrees);
 }
 
 int nifpp::get(ErlNifEnv *env, ERL_NIF_TERM term, R1Interval &var){

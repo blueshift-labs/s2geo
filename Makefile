@@ -13,6 +13,9 @@ compile:
 clean:
 	${REBAR} clean
 
+eunit:
+	${REBAR} eunit
+
 ct:
 	mkdir -p log
-	ct_run -suite test_SUITE -pa ebin -pa deps/*/ebin -include include -logdir log
+	ct_run -suite test_s2cellid -pa ebin -pa deps/*/ebin -include include -include src -include priv -logdir log

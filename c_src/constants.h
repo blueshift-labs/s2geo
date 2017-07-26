@@ -12,6 +12,7 @@ extern const char kAtomNull[];
 extern const char kAtomBadArg[];
 extern const char kAtomOptions[];
 extern const char kAtomNotImplemented[];
+extern const char kAtomInternalError[];
 }
 
 #endif
