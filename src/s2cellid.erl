@@ -44,6 +44,8 @@
     to_token/1,
     to_string/1,
     to_lat_lng/1,
+    to_face_ij_orientation/1,
+
 
     child_position/2,
     contains/2,
@@ -168,6 +170,9 @@ to_string({s2cellid, S2CellId}) when is_integer(S2CellId) ->
 
 to_lat_lng({s2cellid, S2CellId}) when is_integer(S2CellId) ->
     s2geo_nif:s2cellid_zero_args_fn(S2CellId, ?S2CELLID_0_ARGS_TO_LAT_LNG).
+
+to_face_ij_orientation({s2cellid, S2CellId}) when is_integer(S2CellId) ->
+    s2geo_nif:s2cellid_to_face_ij_orientation(S2CellId).
 
 child_position({s2cellid, S2CellId}, Level) when is_integer(S2CellId) ->
     s2geo_nif:s2cellid_one_arg_fn(S2CellId, ?S2CELLID_1_ARG_CHILD_POSITION, Level).

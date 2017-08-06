@@ -47,6 +47,24 @@ ERL_NIF_TERM s2cellid_lsb_for_level(ErlNifEnv* env, int argc, const ERL_NIF_TERM
 }
 
 
+ERL_NIF_TERM s2cellid_to_face_ij_orientation(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
+{
+    CHECK_ARGS_LENGTH(env, argc, 1);
+    try{
+        auto value = nifpp::get<ErlNifUInt64>(env, nifpp::TERM(argv[0]));
+        auto s2cellid = S2CellId(static_cast<uint64>(value));
+
+        int pi, pj, orientation;
+        int face = s2cellid.ToFaceIJOrientation(&pi, &pj,&orientation);
+        return nifpp::make(env, std::make_tuple(face, pi, pj, orientation));
+
+    }
+    catch(nifpp::badarg) {}
+    catch(...){ return ATOMS.atomInternalError;}
+    return enif_make_badarg(env);
+}
+
+
 ERL_NIF_TERM s2cellid_constructor(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
 {
     if(argc < 1) // Need atleast one arg

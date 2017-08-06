@@ -3,12 +3,14 @@
 #include "nif_s2cellid.h"
 #include "nif_s2cellunion.h"
 #include "nif_s2latlngrect.h"
+#include "nif_s2loop.h"
 
 #include "nifpp_utils.h"
 
 #include "s2cell.h"
 #include "s2cellunion.h"
 #include "s2latlngrect.h"
+#include "s2loop.h"
 
 atoms ATOMS;
 
@@ -38,6 +40,7 @@ static int on_nif_load(ErlNifEnv* env, void** priv_data, ERL_NIF_TERM load_info)
     nifpp::register_resource<S2LatLng>(env, nullptr, "S2LatLng");
     nifpp::register_resource<S2LatLngRect>(env, nullptr, "S2LatLngRect");
     nifpp::register_resource<S2CellUnion>(env, nullptr, "S2CellUnion");
+    nifpp::register_resource<S2Loop>(env, nullptr, "S2Loop");
 
     return 0;
 }
@@ -46,6 +49,7 @@ static ErlNifFunc nif_funcs[] = {
     {"s2cellid_get_size_ij",   1, s2cellid_get_size_ij},
     {"s2cellid_get_size_st",   1, s2cellid_get_size_st},
     {"s2cellid_lsb_for_level", 1, s2cellid_lsb_for_level},
+    {"s2cellid_to_face_ij_orientation", 1, s2cellid_to_face_ij_orientation},
 
     {"s2cellid_constructor", 1, s2cellid_constructor},
     {"s2cellid_constructor", 2, s2cellid_constructor},
@@ -73,6 +77,10 @@ static ErlNifFunc nif_funcs[] = {
     {"s2cellunion_get_covering", 3, s2region_coverer_get_covering_for_s2cellunion},
     {"s2cellunion_get_covering", 4, s2region_coverer_get_covering_for_s2cellunion},
 
+    {"s2loop_constructor",       2, s2loop_constructor},
+    {"s2loop_methods",           2, s2loop_methods},
+    {"s2loop_methods",           3, s2loop_methods},
+    {"s2loop_methods",           4, s2loop_methods},
 };
 
 ERL_NIF_INIT(s2geo_nif, nif_funcs, on_nif_load, NULL, NULL, NULL);

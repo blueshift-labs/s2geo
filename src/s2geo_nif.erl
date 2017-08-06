@@ -5,6 +5,7 @@
     s2cellid_get_size_ij/1,
     s2cellid_get_size_st/1,
     s2cellid_lsb_for_level/1,
+    s2cellid_to_face_ij_orientation/1,
 
     s2cellid_constructor/1,
     s2cellid_constructor/2,
@@ -29,7 +30,12 @@
     s2cellunion_methods/3,
     s2cellunion_methods/4,
     s2cellunion_get_covering/3,
-    s2cellunion_get_covering/4
+    s2cellunion_get_covering/4,
+
+    s2loop_constructor/2,
+    s2loop_methods/2,
+    s2loop_methods/3,
+    s2loop_methods/4
     ]).
 
 %%====================================================================
@@ -58,6 +64,9 @@ s2cellid_get_size_st(_) ->
     not_loaded(?LINE).
 
 s2cellid_lsb_for_level(_) ->
+    not_loaded(?LINE).
+
+s2cellid_to_face_ij_orientation(_) ->
     not_loaded(?LINE).
 
 s2cellid_constructor(_) ->
@@ -123,6 +132,18 @@ s2cellunion_get_covering(_, _, _) ->
     not_loaded(?LINE).
 
 s2cellunion_get_covering(_, _, _, _) ->
+    not_loaded(?LINE).
+
+s2loop_constructor(_, _) ->
+    not_loaded(?LINE).
+
+s2loop_methods(_, _) ->
+    not_loaded(?LINE).
+
+s2loop_methods(_, _, _) ->
+    not_loaded(?LINE).
+
+s2loop_methods(_, _, _, _) ->
     not_loaded(?LINE).
 
 init() ->

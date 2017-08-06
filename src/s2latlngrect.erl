@@ -163,13 +163,13 @@ is_inverted({s2latlngrect, Ref}) when is_reference(Ref) ->
   s2geo_nif:s2latlngrect_methods(Ref, ?S2LATLNGRECT_METHOD_IS_INVERTED).
 
 get_vertex({s2latlngrect, Ref}) when is_reference(Ref) ->
-  S2LatLngList = s2geo_nif:s2latlngrect_methods(Ref, ?S2LATLNGRECT_METHOD_GET_VERTEX).
+  s2geo_nif:s2latlngrect_methods(Ref, ?S2LATLNGRECT_METHOD_GET_VERTEX).
 
 get_center({s2latlngrect, Ref}) when is_reference(Ref) ->
-  S2LatLng = s2geo_nif:s2latlngrect_methods(Ref, ?S2LATLNGRECT_METHOD_GET_CENTER).
+  s2geo_nif:s2latlngrect_methods(Ref, ?S2LATLNGRECT_METHOD_GET_CENTER).
 
 get_size({s2latlngrect, Ref}) when is_reference(Ref) ->
-  S2LatLng = s2geo_nif:s2latlngrect_methods(Ref, ?S2LATLNGRECT_METHOD_GET_SIZE).
+  s2geo_nif:s2latlngrect_methods(Ref, ?S2LATLNGRECT_METHOD_GET_SIZE).
 
 area({s2latlngrect, Ref}) when is_reference(Ref) ->
   s2geo_nif:s2latlngrect_methods(Ref, ?S2LATLNGRECT_METHOD_AREA).
