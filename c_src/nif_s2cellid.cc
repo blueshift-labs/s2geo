@@ -64,7 +64,6 @@ ERL_NIF_TERM s2cellid_to_face_ij_orientation(ErlNifEnv* env, int argc, const ERL
     return enif_make_badarg(env);
 }
 
-
 ERL_NIF_TERM s2cellid_constructor(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
 {
     if(argc < 1) // Need atleast one arg

@@ -2,6 +2,13 @@
 
 %% API exports
 -export([
+    s1interval_constructor/1,
+    s1interval_constructor/2,
+    s1interval_constructor/3,
+    s1interval_methods/2,
+    s1interval_methods/3,
+    s1interval_methods/4,
+
     s2cellid_get_size_ij/1,
     s2cellid_get_size_st/1,
     s2cellid_lsb_for_level/1,
@@ -56,6 +63,25 @@
 %%====================================================================
 %% S2CellId functions
 %%====================================================================
+
+s1interval_constructor(_) ->
+    not_loaded(?LINE).
+
+s1interval_constructor(_, _) ->
+    not_loaded(?LINE).
+
+s1interval_constructor(_, _, _) ->
+    not_loaded(?LINE).
+
+s1interval_methods(_, _) ->
+    not_loaded(?LINE).
+
+s1interval_methods(_, _, _) ->
+    not_loaded(?LINE).
+
+s1interval_methods(_, _, _, _) ->
+    not_loaded(?LINE).
+
 
 s2cellid_get_size_ij(_) ->
     not_loaded(?LINE).

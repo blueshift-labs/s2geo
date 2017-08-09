@@ -211,6 +211,37 @@ tokens_random_cellid_check_valid(true, Cellid) ->
 tokens_test() ->
   lists:foreach( fun(Elem) -> tokens_random_cellid_check(Elem) end, lists:seq(1, 20000)).
 
+
+-define(SWAP_MASK, 16#01).
+-define(INVERT_MASK, 16#02).
+
+-define(POS_TO_ORIENTATION, {?SWAP_MASK, 0, 0, ?INVERT_MASK bor ?SWAP_MASK}).
+
+pos_to_orientation(Pos) -> element(Pos + 1, ?POS_TO_ORIENTATION).
+
+expand_cells(_Parent, 3, Cells, ParentMap) -> {ParentMap, Cells};
+expand_cells(Parent, _, Cells, ParentMap) ->
+  {Face, I, J, Orientation} = s2cellid:to_face_ij_orientation(Parent),
+  ?assert(Face == s2cellid:face(Parent)),
+
+  Child = s2cellid:child_begin(Parent),
+  ChildEnd = s2cellid:child_end(Parent),
+  Pos = 0,
+  check_child(Pos, Parent, ParentMap, Cells, Child, ChildEnd, {Face, I, J, Orientation}).
+
+check_child(_, _, ParentMap, Cells, ChildEnd, ChildEnd, _ ) -> {ParentMap, Cells};
+check_child(Pos, Parent, ParentMap, Cells, Child, ChildEnd, {Face, I, J, Orientation}) ->
+  ?assert(s2cellid:child(Parent, Pos) == Child),
+  ?assert(s2cellid:level(Child) == s2cellid:level(Parent) + 1),
+  ?assert(s2cellid:is_leaf(Child) == false),
+  {CFace, _CI, _CJ, COrientation} = s2cellid:to_face_ij_orientation(Child),
+  ?assert(CFace == Face),
+  ?assert(COrientation == (Orientation bxor pos_to_orientation(Pos))),
+  {ChildLevelMap, ChildLevelCells} = expand_cells(Child, s2cellid:level(Child), [Parent | Cells], maps:put(Child, Parent, ParentMap)),
+  check_child(Pos + 1, Parent, ChildLevelMap, ChildLevelCells, s2cellid:next(Child), ChildEnd, {Face, I, J, Orientation}).
+
+
+
 % def expand_cells(self, parent, cells, parent_map):
 %     cells.append(parent)
 %     if parent.level() == 3:  # max level for expand
@@ -235,6 +266,10 @@ tokens_test() ->
 %         self.expand_cells(child, cells, parent_map)
 %         child = child.next()
 %         pos = pos + 1
+
+containment_test() ->
+  Cellid = s2cellid:new_from_face_pos_level(0, 0, 0),
+  {Map, RevCells} = expand_cells(Cellid, s2cellid:level(Cellid), [], #{}).
 
 % def testContainment(self):
 %     parent_map = {}

@@ -12,9 +12,13 @@
 #include "s2cell.h"
 
 
+
 namespace nifpp
 {
 struct TERM;
+
+nifpp::TERM make(ErlNifEnv *env, const Vector2_d &var);
+
 int get(ErlNifEnv *env, ERL_NIF_TERM term, S1Angle &var);
 nifpp::TERM make(ErlNifEnv *env, const S1Angle &var);
 
@@ -36,5 +40,7 @@ nifpp::TERM make(ErlNifEnv *env, const S2CellId &var);
 } // namespace nifpp
 
 #include "nifpp.h"
+
+double get_double_from_term(ErlNifEnv *env, ERL_NIF_TERM term);
 
 #endif

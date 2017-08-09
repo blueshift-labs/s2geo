@@ -28,7 +28,6 @@ ERL_NIF_TERM s2latlngrect_constructor(ErlNifEnv* env, int argc, const ERL_NIF_TE
             case S2LatLngRectConstructors::from_lat_lng_degree:
             {
                 CHECK_ARGS_LENGTH(env, argc, 3);
-
                 auto low_lat_lng = nifpp::get<S2LatLng>(env, argv[1]);
                 auto hi_lat_lng = nifpp::get<S2LatLng>(env, argv[2]);
                 nifpp::resource_ptr<S2LatLngRect> s2rect = nifpp::construct_resource<S2LatLngRect>(low_lat_lng, hi_lat_lng);

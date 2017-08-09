@@ -2,17 +2,41 @@
 #include "nifpp_utils.h"
 #include <string.h>
 
-int nifpp::get(ErlNifEnv *env, ERL_NIF_TERM term, S2LatLng &var){
+double get_double_from_term(ErlNifEnv *env, ERL_NIF_TERM term)
+{
+    try
+    {
+    return nifpp::get<double>(env, nifpp::TERM(term));
+    }
+    catch(nifpp::badarg) {
+        return (double) nifpp::get<int>(env, nifpp::TERM(term));
+    }
+}
+
+int nifpp::get(ErlNifEnv *env, ERL_NIF_TERM term, S2LatLng &var)
+{
     double lat;
     double lng;
 
-    auto lat_lng_tuple = make_tuple(ref(lat), ref(lng));
-
-    int res = nifpp::get(env, term, lat_lng_tuple);
-    if(res){
+    int arity;
+    const ERL_NIF_TERM *array;
+    int ret = enif_get_tuple(env, term, &arity, &array);
+    if (arity == 2){
+        ERL_NIF_TERM first = *array;
+        ERL_NIF_TERM second = *(array+1);
+        lat = get_double_from_term(env, first);
+        lng = get_double_from_term(env, second);
         var = S2LatLng::FromDegrees(lat, lng).Normalized();
+        return 1;
     }
-    return res;
+    return 0;
+}
+
+nifpp::TERM make(ErlNifEnv *env, const Vector2_d &var)
+{
+    double x = var.x();
+    double y = var.y();
+    return nifpp::make(env, std::make_tuple(x, y));
 }
 
 nifpp::TERM nifpp::make(ErlNifEnv *env, const S2LatLng &var){

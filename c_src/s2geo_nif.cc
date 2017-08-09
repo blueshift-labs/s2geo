@@ -1,5 +1,6 @@
 #include "s2geo_nif.h"
 #include "constants.h"
+#include "nif_s1interval.h"
 #include "nif_s2cellid.h"
 #include "nif_s2cellunion.h"
 #include "nif_s2latlngrect.h"
@@ -46,6 +47,13 @@ static int on_nif_load(ErlNifEnv* env, void** priv_data, ERL_NIF_TERM load_info)
 }
 
 static ErlNifFunc nif_funcs[] = {
+    {"s1interval_constructor", 1, s1interval_constructor},
+    {"s1interval_constructor", 2, s1interval_constructor},
+    {"s1interval_constructor", 3, s1interval_constructor},
+    {"s1interval_methods",     2, s1interval_methods},
+    {"s1interval_methods",     3, s1interval_methods},
+    {"s1interval_methods",     4, s1interval_methods},
+
     {"s2cellid_get_size_ij",   1, s2cellid_get_size_ij},
     {"s2cellid_get_size_st",   1, s2cellid_get_size_st},
     {"s2cellid_lsb_for_level", 1, s2cellid_lsb_for_level},
@@ -67,7 +75,6 @@ static ErlNifFunc nif_funcs[] = {
 
     {"s2latlngrect_get_covering", 3, s2region_coverer_get_covering_for_s2latlngrect},
     {"s2latlngrect_get_covering", 4, s2region_coverer_get_covering_for_s2latlngrect},
-
 
     {"s2cellunion_constructor",  2, s2cellunion_constructor},
     {"s2cellunion_constructor",  3, s2cellunion_constructor},
