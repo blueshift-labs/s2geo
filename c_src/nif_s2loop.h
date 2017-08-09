@@ -40,5 +40,6 @@ enum class S2LoopMethods {
 
 ERL_NIF_TERM s2loop_constructor(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
 ERL_NIF_TERM s2loop_methods(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2region_coverer_get_covering_for_s2loop(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
 
 #endif

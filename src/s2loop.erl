@@ -1,5 +1,6 @@
 -module(s2loop).
 
+-include("s2geo_internals.hrl").
 -include("s2loop_internals.hrl").
 
 -export([
@@ -35,8 +36,15 @@
 
   contains_s2cellid/2,
   may_intersect_s2cellid/2,
-  contains_s2point/2
-    ]).
+  contains_s2point/2,
+
+  get_covering/1,
+  get_covering/2,
+  get_covering/3,
+  get_interior_covering/3,
+  get_cellunion_covering/3,
+  get_cellunion_interior_covering/3
+  ]).
 
 new_from_s2point_list(S2PointList) when is_list(S2PointList) ->
   S2LoopRef = s2geo_nif:s2loop_constructor(?S2LOOPCONSTRUCTORS_FROM_S2POINT_LIST, S2PointList),
@@ -128,3 +136,32 @@ may_intersect_s2cellid({s2loop, S2LoopRefSelf}, {s2cellid, Cellid}) ->
 
 contains_s2point({s2loop, S2LoopRefSelf}, {s2point, X, Y, Z}) ->
   s2geo_nif:s2loop_methods(S2LoopRefSelf, ?S2LOOPMETHODS_CONTAINS_S2POINT, {X, Y, Z}).
+
+
+
+get_covering({s2loop, Ref}) when is_reference(Ref) ->
+   Covering = s2geo_nif:s2loop_get_covering(Ref, ?S2REGIONCOVERINGTYPE_CELLID_COVERING, 0),
+   {covering, Covering}.
+
+get_covering({s2loop, Ref}, MaxCells) when is_reference(Ref), is_integer(MaxCells) ->
+   Covering = s2geo_nif:s2loop_get_covering(Ref, ?S2REGIONCOVERINGTYPE_CELLID_COVERING, MaxCells),
+   {covering, Covering};
+get_covering({s2loop, Ref}, {MinLevel, MaxLevel} ) when is_reference(Ref) ->
+   Covering = s2geo_nif:s2loop_get_covering(Ref, ?S2REGIONCOVERINGTYPE_CELLID_COVERING, 0, {MinLevel, MaxLevel}),
+   {covering, Covering}.
+
+get_covering({s2loop, Ref}, MaxCells, {MinLevel, MaxLevel} ) when is_reference(Ref) ->
+   Covering = s2geo_nif:s2loop_get_covering(Ref, ?S2REGIONCOVERINGTYPE_CELLID_COVERING, MaxCells, {MinLevel, MaxLevel}),
+   {covering, Covering}.
+
+get_interior_covering({s2loop, Ref}, MaxCells, {MinLevel, MaxLevel} ) when is_reference(Ref) ->
+   Covering = s2geo_nif:s2loop_get_covering(Ref, ?S2REGIONCOVERINGTYPE_CELLID_INTERIOR_COVERING, MaxCells, {MinLevel, MaxLevel}),
+   {covering, Covering}.
+
+get_cellunion_covering({s2loop, Ref}, MaxCells, {MinLevel, MaxLevel} ) when is_reference(Ref) ->
+   Covering = s2geo_nif:s2loop_get_covering(Ref, ?S2REGIONCOVERINGTYPE_CELL_UNION_COVERING, MaxCells, {MinLevel, MaxLevel}),
+   {covering, Covering}.
+
+get_cellunion_interior_covering({s2loop, Ref}, MaxCells, {MinLevel, MaxLevel} ) when is_reference(Ref) ->
+   Covering = s2geo_nif:s2loop_get_covering(Ref, ?S2REGIONCOVERINGTYPE_INTERIOR_CELL_UNION_COVERING, MaxCells, {MinLevel, MaxLevel}),
+   {covering, Covering}.

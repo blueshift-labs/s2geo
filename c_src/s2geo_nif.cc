@@ -88,6 +88,8 @@ static ErlNifFunc nif_funcs[] = {
     {"s2loop_methods",           2, s2loop_methods},
     {"s2loop_methods",           3, s2loop_methods},
     {"s2loop_methods",           4, s2loop_methods},
+    {"s2loop_get_covering", 3, s2region_coverer_get_covering_for_s2loop},
+    {"s2loop_get_covering", 4, s2region_coverer_get_covering_for_s2loop},
 };
 
 ERL_NIF_INIT(s2geo_nif, nif_funcs, on_nif_load, NULL, NULL, NULL);
