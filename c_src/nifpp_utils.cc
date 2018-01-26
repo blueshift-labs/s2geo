@@ -32,7 +32,7 @@ int nifpp::get(ErlNifEnv *env, ERL_NIF_TERM term, S2LatLng &var)
     return 0;
 }
 
-nifpp::TERM make(ErlNifEnv *env, const Vector2_d &var)
+nifpp::TERM nifpp::make(ErlNifEnv *env, const Vector2_d &var)
 {
     double x = var.x();
     double y = var.y();

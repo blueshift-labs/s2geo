@@ -10,7 +10,7 @@
 #include "s2latlng.h"
 #include "s2cellid.h"
 #include "s2cell.h"
-
+#include "util/math/vector2.h"
 
 
 namespace nifpp

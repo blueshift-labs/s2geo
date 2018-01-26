@@ -1,5 +1,5 @@
 {application, s2geo,[
-  {description, "An OTP library"},
+  {description, "S2 Geometry library"},
   {vsn, "0.1.0"},
   {registered, []},
   {applications, [
@@ -8,7 +8,7 @@
     ]},
   {env,[]},
   {modules, []},
-  {maintainers, []},
+  {maintainers, ["Cibin George <cibin@getblueshift.com>"]},
   {licenses, []},
   {links, []}
  ]}.

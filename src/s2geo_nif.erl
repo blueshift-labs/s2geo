@@ -42,7 +42,9 @@
     s2loop_constructor/2,
     s2loop_methods/2,
     s2loop_methods/3,
-    s2loop_methods/4
+    s2loop_methods/4,
+    s2loop_get_covering/3,
+    s2loop_get_covering/4
     ]).
 
 %%====================================================================
@@ -170,6 +172,12 @@ s2loop_methods(_, _, _) ->
     not_loaded(?LINE).
 
 s2loop_methods(_, _, _, _) ->
+    not_loaded(?LINE).
+
+s2loop_get_covering(_, _, _) ->
+    not_loaded(?LINE).
+
+s2loop_get_covering(_, _, _, _) ->
     not_loaded(?LINE).
 
 init() ->

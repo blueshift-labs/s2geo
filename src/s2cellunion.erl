@@ -26,6 +26,7 @@
   exact_area/1,
   get_rect_bound/1,
   may_intersect/2,
+
   get_covering/1,
   get_covering/2,
   get_covering/3,
@@ -34,9 +35,11 @@
   get_cellunion_interior_covering/3
   ]).
 
+get_cellids_from_list([{s2cellid, CellId}]) -> [CellId];
+get_cellids_from_list([{s2cellid, CellId}|Rest]) -> [CellId | get_cellids_from_list(Rest)].
 
 new_from_cellids_list(S2CellIdsList) when is_list(S2CellIdsList) ->
-  S2CellUnionRef = s2geo_nif:s2cellunion_constructor(?S2CELLUNIONCONSTRUCTORS_INIT_FROM_CELLIDS, S2CellIdsList),
+  S2CellUnionRef = s2geo_nif:s2cellunion_constructor(?S2CELLUNIONCONSTRUCTORS_INIT_FROM_CELLIDS, get_cellids_from_list(S2CellIdsList)),
   {s2cellunion, S2CellUnionRef}.
 
 new_from_integer_list(Uint64List) when is_list(Uint64List) ->
@@ -119,7 +122,6 @@ get_rect_bound({s2cellunion, S2CellUnionRef}) when is_reference(S2CellUnionRef) 
 
 may_intersect({s2cellunion, S2CellUnionRef}, {s2cellid, S2CellId}) when is_reference(S2CellUnionRef) ->
    s2geo_nif:s2cellunion_methods(S2CellUnionRef, ?S2CELLUNIONMETHODS_MAY_INTERSECT_S2CELL, S2CellId).
-
 
 
 
