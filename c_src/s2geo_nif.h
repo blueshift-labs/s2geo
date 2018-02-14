@@ -19,8 +19,8 @@ struct atoms
 extern atoms ATOMS;
 
 enum class S2RegionCoveringType {
-  cellid_covering                        = 1,
-  cellid_interior_covering               = 2,
+  cellid_covering                 = 1,
+  cellid_interior_covering        = 2,
   cell_union_covering             = 3,
   interior_cell_union_covering    = 4,
 };

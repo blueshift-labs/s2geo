@@ -9,7 +9,8 @@
 -define(S2CELLID_CONSTRUCTOR_FROM_FACE_IJ,           9).
 
 % functions which take no extra arguments other than cellid
--define(S2CELLID_0_ARGS_IS_VALID,       11).
+-define(S2CELLID_0_ARGS_IS_VALID,       10).
+-define(S2CELLID_0_ARGS_TO_POINT,       11).
 -define(S2CELLID_0_ARGS_TO_LAT_LNG,     12).
 -define(S2CELLID_0_ARGS_FACE,           13).
 -define(S2CELLID_0_ARGS_POS,            14).

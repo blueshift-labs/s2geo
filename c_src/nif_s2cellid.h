@@ -14,7 +14,8 @@ enum class S2CellIdConstructors {
 };
 
 enum class S2CellIdFunctionZeroArgs {
-  is_valid      = 11,
+  is_valid      = 10,
+  to_point      = 11,
   to_lat_lng    = 12,
   face          = 13,
   pos           = 14,
@@ -35,7 +36,6 @@ enum class S2CellIdFunctionZeroArgs {
   to_token      = 29,
   to_string     = 30,
   lsb           = 31,
-
  };
 
 enum class S2CellIdFunctionOneArg {

@@ -19,6 +19,7 @@
     id/1,
 
     is_valid/1,
+
     face/1,
     pos/1,
     level/1,
@@ -43,6 +44,7 @@
 
     to_token/1,
     to_string/1,
+    to_point/1,
     to_lat_lng/1,
     to_face_ij_orientation/1,
 
@@ -167,6 +169,9 @@ to_token({s2cellid, S2CellId}) when is_integer(S2CellId) ->
 
 to_string({s2cellid, S2CellId}) when is_integer(S2CellId) ->
     s2geo_nif:s2cellid_zero_args_fn(S2CellId, ?S2CELLID_0_ARGS_TO_STRING).
+
+to_point({s2cellid, S2CellId}) when is_integer(S2CellId) ->
+    {s2point, s2geo_nif:s2cellid_zero_args_fn(S2CellId, ?S2CELLID_0_ARGS_TO_POINT)}.
 
 to_lat_lng({s2cellid, S2CellId}) when is_integer(S2CellId) ->
     s2geo_nif:s2cellid_zero_args_fn(S2CellId, ?S2CELLID_0_ARGS_TO_LAT_LNG).

@@ -13,7 +13,7 @@ KERNEL=$(echo $(lsb_release -ds 2>/dev/null || cat /etc/*release 2>/dev/null | h
 ##echo $OS
 ##echo $KERNEL
 
-S2_GEOMETRY_REPO=https://github.com/micolous/s2-geometry-library.git
+S2_GEOMETRY_REPO=https://github.com/yjwong/s2-geometry-library.git
 S2_GEOMETRY_REV=$1
 
 case $OS in
@@ -63,5 +63,5 @@ mkdir -p $DEPS_LOCATION/s2-geometry-library/build
 pushd $DEPS_LOCATION/s2-geometry-library/build
 cmake ../geometry
 make -j 3
-sudo make install
+make install
 popd

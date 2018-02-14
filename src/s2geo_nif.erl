@@ -44,7 +44,17 @@
     s2loop_methods/3,
     s2loop_methods/4,
     s2loop_get_covering/3,
-    s2loop_get_covering/4
+    s2loop_get_covering/4,
+
+    s2cap_constructor/1,
+    s2cap_constructor/3,
+
+    s2cap_methods/2,
+    s2cap_methods/3,
+    s2cap_methods/4,
+
+    s2cap_get_covering/3,
+    s2cap_get_covering/4
     ]).
 
 %%====================================================================
@@ -59,7 +69,7 @@
 -on_load(init/0).
 
 -define(APPNAME, s2geo).
--define(LIBNAME, s2geo).
+-define(LIBNAME, s2geo_nif).
 
 
 %%====================================================================
@@ -179,6 +189,33 @@ s2loop_get_covering(_, _, _) ->
 
 s2loop_get_covering(_, _, _, _) ->
     not_loaded(?LINE).
+
+
+%%====================================================================
+%% S2Cap functions
+%%====================================================================
+
+s2cap_constructor(_) ->
+    not_loaded(?LINE).
+
+s2cap_constructor(_, _, _) ->
+    not_loaded(?LINE).
+
+s2cap_methods(_, _) ->
+    not_loaded(?LINE).
+
+s2cap_methods(_, _, _) ->
+    not_loaded(?LINE).
+
+s2cap_methods(_, _, _, _) ->
+    not_loaded(?LINE).
+
+s2cap_get_covering(_, _, _) ->
+    not_loaded(?LINE).
+
+s2cap_get_covering(_, _, _, _) ->
+    not_loaded(?LINE).
+
 
 init() ->
     SoName = case code:priv_dir(?APPNAME) of

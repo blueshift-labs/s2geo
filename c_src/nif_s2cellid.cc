@@ -167,6 +167,9 @@ ERL_NIF_TERM s2cellid_zero_args_fn(ErlNifEnv* env, int argc, const ERL_NIF_TERM 
                 }
                 return ATOMS.atomFalse;
 
+            case S2CellIdFunctionZeroArgs::to_point:
+                return nifpp::make(env, s2cellid.ToPoint());
+
             case S2CellIdFunctionZeroArgs::to_lat_lng:
                 return nifpp::make(env, s2cellid.ToLatLng());
 

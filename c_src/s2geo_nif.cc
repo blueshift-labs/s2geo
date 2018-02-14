@@ -5,6 +5,7 @@
 #include "nif_s2cellunion.h"
 #include "nif_s2latlngrect.h"
 #include "nif_s2loop.h"
+#include "nif_s2cap.h"
 
 #include "nifpp_utils.h"
 
@@ -12,6 +13,7 @@
 #include "s2cellunion.h"
 #include "s2latlngrect.h"
 #include "s2loop.h"
+#include "s2cap.h"
 
 atoms ATOMS;
 
@@ -42,6 +44,7 @@ static int on_nif_load(ErlNifEnv* env, void** priv_data, ERL_NIF_TERM load_info)
     nifpp::register_resource<S2LatLngRect>(env, nullptr, "S2LatLngRect");
     nifpp::register_resource<S2CellUnion>(env, nullptr, "S2CellUnion");
     nifpp::register_resource<S2Loop>(env, nullptr, "S2Loop");
+    nifpp::register_resource<S2Cap>(env, nullptr, "S2Cap");
 
     return 0;
 }
@@ -90,6 +93,15 @@ static ErlNifFunc nif_funcs[] = {
     {"s2loop_methods",           4, s2loop_methods},
     {"s2loop_get_covering", 3, s2region_coverer_get_covering_for_s2loop},
     {"s2loop_get_covering", 4, s2region_coverer_get_covering_for_s2loop},
+
+    {"s2cap_constructor",       1, s2cap_constructor},
+    {"s2cap_constructor",       3, s2cap_constructor},
+    {"s2cap_methods",           2, s2cap_methods},
+    {"s2cap_methods",           3, s2cap_methods},
+    {"s2cap_methods",           4, s2cap_methods},
+    {"s2cap_get_covering", 3, s2region_coverer_get_covering_for_s2cap},
+    {"s2cap_get_covering", 4, s2region_coverer_get_covering_for_s2cap},
+
 };
 
 ERL_NIF_INIT(s2geo_nif, nif_funcs, on_nif_load, NULL, NULL, NULL);
