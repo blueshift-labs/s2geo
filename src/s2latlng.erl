@@ -63,7 +63,7 @@ new_from_radians(LatRadians, LngRadians) when is_float(LatRadians) and is_float(
   {s2latlng, s2geo_nif:s2latlng_constructor(?S2LATLNG_CONSTRUCTORS_FROM_RADIANS, LatRadians, LngRadians)}.
 
 new_from_degrees(LatDegree, LngDegree) when is_float(LatDegree) and is_float(LngDegree) ->
-  {s2latlng, s2geo_nif:s2latlng_constructor(?S2LATLNG_CONSTRUCTORS_FROM_RADIANS, LatDegree, LngDegree)}.
+  {s2latlng, s2geo_nif:s2latlng_constructor(?S2LATLNG_CONSTRUCTORS_FROM_DEGREES, LatDegree, LngDegree)}.
 
 new_from_e5(Lat_e5, Lng_e5) when is_number(Lat_e5) and is_number(Lng_e5) ->
   {s2latlng, s2geo_nif:s2latlng_constructor(?S2LATLNG_CONSTRUCTORS_FROM_E5, Lat_e5, Lng_e5)}.
