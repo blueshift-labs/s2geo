@@ -100,7 +100,7 @@ is_valid({s2latlng, S2LatLng}) ->
   s2geo_nif:s2latlng_methods(S2LatLng, ?S2LATLNG_METHODS_IS_VALID).
 
 normalized({s2latlng, S2LatLng}) ->
-  s2geo_nif:s2latlng_methods(S2LatLng, ?S2LATLNG_METHODS_NORMALIZED).
+  {s2latlng, s2geo_nif:s2latlng_methods(S2LatLng, ?S2LATLNG_METHODS_NORMALIZED)}.
 
 to_point({s2latlng, S2LatLng}) ->
   {s2point, s2geo_nif:s2latlng_methods(S2LatLng, ?S2LATLNG_METHODS_TO_POINT)}.
