@@ -161,6 +161,12 @@ ERL_NIF_TERM s2latlng_methods(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[
                 return nifpp::make(env, self.is_valid());
             }
 
+            case S2LatLngMethods::normalized:
+            {
+                CHECK_ARGS_LENGTH(env, argc, 2);
+                return nifpp::make(env, self.Normalized());
+            }
+
             case S2LatLngMethods::to_point:
             {
                 CHECK_ARGS_LENGTH(env, argc, 2);
