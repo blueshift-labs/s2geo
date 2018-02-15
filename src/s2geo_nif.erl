@@ -54,7 +54,14 @@
     s2cap_methods/4,
 
     s2cap_get_covering/3,
-    s2cap_get_covering/4
+    s2cap_get_covering/4,
+
+    s2latlng_constructor/1,
+    s2latlng_constructor/2,
+    s2latlng_constructor/3,
+    s2latlng_methods/2,
+    s2latlng_methods/3,
+    s2latlng_methods/4
     ]).
 
 %%====================================================================
@@ -216,6 +223,28 @@ s2cap_get_covering(_, _, _) ->
 s2cap_get_covering(_, _, _, _) ->
     not_loaded(?LINE).
 
+
+%%====================================================================
+%% S2LatLng functions
+%%====================================================================
+
+s2latlng_constructor(_) ->
+    not_loaded(?LINE).
+
+s2latlng_constructor(_, _) ->
+    not_loaded(?LINE).
+
+s2latlng_constructor(_, _, _) ->
+    not_loaded(?LINE).
+
+s2latlng_methods(_, _) ->
+    not_loaded(?LINE).
+
+s2latlng_methods(_, _, _) ->
+    not_loaded(?LINE).
+
+s2latlng_methods(_, _, _, _) ->
+    not_loaded(?LINE).
 
 init() ->
     SoName = case code:priv_dir(?APPNAME) of
