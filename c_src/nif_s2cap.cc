@@ -9,6 +9,8 @@
 #include "nif_s2cap.h"
 #include "s2latlngrect.h"
 
+#include<functional>
+
 using std::make_tuple;
 using std::ref;
 

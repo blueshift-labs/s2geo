@@ -8,6 +8,7 @@
 #include "nifpp_utils.h"
 #include "nif_s2latlngrect.h"
 
+#include<functional>
 
 using std::make_tuple;
 using std::ref;

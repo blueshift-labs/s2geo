@@ -3,7 +3,6 @@
 #include "nif_s1interval.h"
 
 using std::make_tuple;
-using std::ref;
 
 #define CHECK_ARGS_LENGTH(env, arg, len) \
     if(arg != len) \

@@ -1,6 +1,10 @@
 #include "s2geo_nif.h"
 #include "nifpp_utils.h"
 #include <string.h>
+#include<functional>
+
+using std::make_tuple;
+using std::ref;
 
 double get_double_from_term(ErlNifEnv *env, ERL_NIF_TERM term)
 {
