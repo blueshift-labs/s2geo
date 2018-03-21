@@ -61,5 +61,9 @@ ERL_NIF_TERM s2cellid_constructor(ErlNifEnv* env, int argc, const ERL_NIF_TERM a
 ERL_NIF_TERM s2cellid_zero_args_fn(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
 ERL_NIF_TERM s2cellid_one_arg_fn(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
 
+
+ERL_NIF_TERM s2cellid_get_edge_neighbors(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2cellid_get_vertex_neighbors(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2cellid_get_all_neighbors(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
 #endif
 

@@ -22,6 +22,10 @@
     s2cellid_zero_args_fn/2,
 
     s2cellid_one_arg_fn/3,
+    s2cellid_get_edge_neighbors/1,
+    s2cellid_get_vertex_neighbors/2,
+    s2cellid_get_all_neighbors/2,
+
 
     s2latlngrect_constructor/1,
     s2latlngrect_constructor/2,
@@ -131,6 +135,18 @@ s2cellid_zero_args_fn(_, _) ->
 
 s2cellid_one_arg_fn(_, _, _) ->
     not_loaded(?LINE).
+
+
+s2cellid_get_edge_neighbors(_) ->
+    not_loaded(?LINE).
+
+s2cellid_get_vertex_neighbors(_, _) ->
+    not_loaded(?LINE).
+
+s2cellid_get_all_neighbors(_, _) ->
+    not_loaded(?LINE).
+
+
 
 %%====================================================================
 %% S2LatLngRect functions

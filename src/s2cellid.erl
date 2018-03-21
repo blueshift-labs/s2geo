@@ -57,13 +57,19 @@
     child_begin/2,
     child_end/2,
     advance/2,
-    advance_wrap/2
+    advance_wrap/2,
+
+    get_edge_neighbors/1,
+    get_vertex_neighbors/2,
+    get_all_neighbors/2
     ]).
 
 -compile({inline, [max_level/0, num_faces/0, id/1]}).
 
 max_level() -> 30.
+
 num_faces() -> 6.
+
 id({s2cellid, Id}) -> Id.
 
 %%====================================================================
@@ -205,3 +211,12 @@ advance({s2cellid, S2CellId}, Level) when is_integer(S2CellId) ->
 
 advance_wrap({s2cellid, S2CellId}, Level) when is_integer(S2CellId) ->
     {s2cellid, s2geo_nif:s2cellid_one_arg_fn(S2CellId, ?S2CELLID_1_ARG_ADVANCE_WRAP, Level)}.
+
+get_edge_neighbors({s2cellid, S2CellId}) when is_integer(S2CellId) ->
+    s2geo_nif:s2cellid_get_edge_neighbors(S2CellId).
+
+get_vertex_neighbors({s2cellid, S2CellId}, Level) when is_integer(S2CellId) ->
+    s2geo_nif:s2cellid_get_vertex_neighbors(S2CellId, Level).
+
+get_all_neighbors({s2cellid, S2CellId}, Level) when is_integer(S2CellId) ->
+    s2geo_nif:s2cellid_get_all_neighbors(S2CellId, Level).

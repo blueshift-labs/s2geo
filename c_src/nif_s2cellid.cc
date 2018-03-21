@@ -328,3 +328,58 @@ ERL_NIF_TERM s2cellid_one_arg_fn(ErlNifEnv* env, int argc, const ERL_NIF_TERM ar
 
     return enif_make_badarg(env);
 }
+
+
+ERL_NIF_TERM s2cellid_get_edge_neighbors(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
+{
+    CHECK_ARGS_LENGTH(env, argc, 1);
+    try{
+        auto value = nifpp::get<ErlNifUInt64>(env, nifpp::TERM(argv[0]));
+        auto s2cellid = S2CellId(static_cast<uint64>(value));
+
+        S2CellId neighbors[4];
+        s2cellid.GetEdgeNeighbors(neighbors);
+        std::vector<S2CellId> v(neighbors, neighbors + 3);
+        return nifpp::make(env, v);
+    }
+    catch(nifpp::badarg) {}
+    catch(...){ return ATOMS.atomInternalError;}
+    return enif_make_badarg(env);
+}
+
+ERL_NIF_TERM s2cellid_get_vertex_neighbors(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
+{
+    CHECK_ARGS_LENGTH(env, argc, 2);
+    try{
+        auto value = nifpp::get<ErlNifUInt64>(env, nifpp::TERM(argv[0]));
+        auto s2cellid = S2CellId(static_cast<uint64>(value));
+        int level = nifpp::get<int>(env, nifpp::TERM(argv[1]));
+
+        vector<S2CellId> output;
+        s2cellid.AppendVertexNeighbors(level, &output);
+
+        return nifpp::make(env, output);
+    }
+    catch(nifpp::badarg) {}
+    catch(...){ return ATOMS.atomInternalError;}
+    return enif_make_badarg(env);
+}
+
+ERL_NIF_TERM s2cellid_get_all_neighbors(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
+{
+    CHECK_ARGS_LENGTH(env, argc, 2);
+    try{
+        auto value = nifpp::get<ErlNifUInt64>(env, nifpp::TERM(argv[0]));
+        auto s2cellid = S2CellId(static_cast<uint64>(value));
+        int nbr_level = nifpp::get<int>(env, nifpp::TERM(argv[1]));
+
+        vector<S2CellId> output;
+        s2cellid.AppendAllNeighbors(nbr_level, &output);
+
+        return nifpp::make(env, output);
+    }
+    catch(nifpp::badarg) {}
+    catch(...){ return ATOMS.atomInternalError;}
+    return enif_make_badarg(env);
+}
+

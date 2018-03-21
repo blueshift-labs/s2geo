@@ -71,6 +71,9 @@ static ErlNifFunc nif_funcs[] = {
 
     {"s2cellid_zero_args_fn",       2, s2cellid_zero_args_fn},
     {"s2cellid_one_arg_fn",         3, s2cellid_one_arg_fn},
+    {"s2cellid_get_edge_neighbors", 1, s2cellid_get_edge_neighbors},
+    {"s2cellid_get_vertex_neighbors", 2, s2cellid_get_vertex_neighbors},
+    {"s2cellid_get_all_neighbors",  2, s2cellid_get_all_neighbors},
 
     {"s2latlngrect_constructor",    1, s2latlngrect_constructor},
     {"s2latlngrect_constructor",    2, s2latlngrect_constructor},
