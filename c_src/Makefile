@@ -56,7 +56,7 @@ ifeq ($(UNAME_SYS), darwin)
 endif
 
 CXXFLAGS+=  -g -std=c++11 -Wextra -fno-rtti \
-      -Wno-unused-local-typedefs -Wno-unused-parameter -Wno-missing-field-initializers \
+      -Wno-unused-local-typedefs -Wno-unused-parameter -Wno-unused-private-field -Wno-missing-field-initializers \
       			-I $(BASEDIR)/_build/deps/s2geometry/src \
       			-I $(BASEDIR)/_build/deps/s2geometry/src/third_party/absl
 

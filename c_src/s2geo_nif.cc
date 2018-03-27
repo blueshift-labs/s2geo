@@ -7,6 +7,7 @@
 #include "nif_s2latlng.h"
 //#include "nif_s2loop.h"
 #include "nif_s2cap.h"
+#include "nif_s2earth.h"
 
 #include "nifpp_utils.h"
 
@@ -181,6 +182,36 @@ static ErlNifFunc nif_funcs[] = {
     {"s2latlng_methods",            2, s2latlng_methods},
     {"s2latlng_methods",            3, s2latlng_methods},
     {"s2latlng_methods",            4, s2latlng_methods},
+
+
+    {"s2earth_to_s1angle", 1, s2earth_to_s1angle},
+    {"s2earth_to_distance", 1, s2earth_to_distance},
+    {"s2earth_to_radians", 1, s2earth_to_radians},
+    {"s2earth_to_meters", 1, s2earth_to_meters},
+    {"s2earth_to_km", 1, s2earth_to_km},
+    {"s2earth_km_to_radians", 1, s2earth_km_to_radians},
+    {"s2earth_radians_to_km", 1, s2earth_radians_to_km},
+    {"s2earth_meters_to_radians", 1, s2earth_meters_to_radians},
+    {"s2earth_radians_to_meters", 1, s2earth_radians_to_meters},
+    {"s2earth_square_km_to_steradians", 1, s2earth_square_km_to_steradians},
+    {"s2earth_square_meters_to_steradians", 1, s2earth_square_meters_to_steradians},
+    {"s2earth_steradians_to_square_km", 1, s2earth_steradians_to_square_km},
+    {"s2earth_steradians_to_square_meters", 1, s2earth_steradians_to_square_meters},
+    {"s2earth_to_longitude_radians", 2, s2earth_to_longitude_radians},
+    {"s2earth_get_initial_bearing", 2, s2earth_get_initial_bearing},
+    {"s2earth_get_distance_s2point", 2, s2earth_get_distance_s2point},
+    {"s2earth_get_distance_s2latlng", 2, s2earth_get_distance_s2latlng},
+    {"s2earth_get_distance_km_s2point", 2, s2earth_get_distance_km_s2point},
+    {"s2earth_get_distance_km_s2latlng", 2, s2earth_get_distance_km_s2latlng},
+    {"s2earth_get_distance_meters_s2point", 2, s2earth_get_distance_meters_s2point},
+    {"s2earth_get_distance_meters_s2latlng", 2, s2earth_get_distance_meters_s2latlng},
+
+    {"s2earth_radius_km", 0, s2earth_radius_km},
+    {"s2earth_radius_meters", 0, s2earth_radius_meters},
+    {"s2earth_lowest_altitude_km", 0, s2earth_lowest_altitude_km},
+    {"s2earth_lowest_altitude_meters", 0, s2earth_lowest_altitude_meters},
+    {"s2earth_highest_altitude_km", 0, s2earth_highest_altitude_km},
+    {"s2earth_highest_altitude_meters", 0, s2earth_highest_altitude_meters},
 
 };
 

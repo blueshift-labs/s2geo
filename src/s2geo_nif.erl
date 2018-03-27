@@ -138,7 +138,38 @@
     s2latlng_constructor/3,
     s2latlng_methods/2,
     s2latlng_methods/3,
-    s2latlng_methods/4
+    s2latlng_methods/4,
+
+    s2earth_to_s1angle/1,
+    s2earth_to_distance/1,
+    s2earth_to_radians/1,
+    s2earth_to_meters/1,
+    s2earth_to_km/1,
+    s2earth_km_to_radians/1,
+    s2earth_radians_to_km/1,
+    s2earth_meters_to_radians/1,
+    s2earth_radians_to_meters/1,
+    s2earth_square_km_to_steradians/1,
+    s2earth_square_meters_to_steradians/1,
+    s2earth_steradians_to_square_km/1,
+    s2earth_steradians_to_square_meters/1,
+    s2earth_to_longitude_radians/2,
+    s2earth_get_initial_bearing/2,
+    s2earth_get_distance_s2point/2,
+    s2earth_get_distance_s2latlng/2,
+    s2earth_get_distance_km_s2point/2,
+    s2earth_get_distance_km_s2latlng/2,
+    s2earth_get_distance_meters_s2point/2,
+    s2earth_get_distance_meters_s2latlng/2,
+    s2earth_radius/0,
+    s2earth_radius_km/0,
+    s2earth_radius_meters/0,
+    s2earth_lowest_altitude/0,
+    s2earth_lowest_altitude_km/0,
+    s2earth_lowest_altitude_meters/0,
+    s2earth_highest_altitude/0,
+    s2earth_highest_altitude_km/0,
+    s2earth_highest_altitude_meters/0
     ]).
 
 %%====================================================================
@@ -556,6 +587,102 @@ s2latlng_methods(_, _, _) ->
 s2latlng_methods(_, _, _, _) ->
     not_loaded(?LINE).
 
+%%====================================================================
+%% S2Earth functions
+%%====================================================================
+
+s2earth_to_s1angle(_) ->
+    not_loaded(?LINE).
+
+s2earth_to_distance(_) ->
+    not_loaded(?LINE).
+
+s2earth_to_radians(_) ->
+    not_loaded(?LINE).
+
+s2earth_to_meters(_) ->
+    not_loaded(?LINE).
+
+s2earth_to_km(_) ->
+    not_loaded(?LINE).
+
+s2earth_km_to_radians(_) ->
+    not_loaded(?LINE).
+
+s2earth_radians_to_km(_) ->
+    not_loaded(?LINE).
+
+s2earth_meters_to_radians(_) ->
+    not_loaded(?LINE).
+
+s2earth_radians_to_meters(_) ->
+    not_loaded(?LINE).
+
+s2earth_square_km_to_steradians(_) ->
+    not_loaded(?LINE).
+
+s2earth_square_meters_to_steradians(_) ->
+    not_loaded(?LINE).
+
+s2earth_steradians_to_square_km(_) ->
+    not_loaded(?LINE).
+
+s2earth_steradians_to_square_meters(_) ->
+    not_loaded(?LINE).
+
+s2earth_to_longitude_radians(_, _) ->
+    not_loaded(?LINE).
+
+s2earth_get_initial_bearing(_, _) ->
+    not_loaded(?LINE).
+
+s2earth_get_distance_s2point(_, _) ->
+    not_loaded(?LINE).
+
+s2earth_get_distance_s2latlng(_, _) ->
+    not_loaded(?LINE).
+
+s2earth_get_distance_km_s2point(_, _) ->
+    not_loaded(?LINE).
+
+s2earth_get_distance_km_s2latlng(_, _) ->
+    not_loaded(?LINE).
+
+s2earth_get_distance_meters_s2point(_, _) ->
+    not_loaded(?LINE).
+
+s2earth_get_distance_meters_s2latlng(_, _) ->
+    not_loaded(?LINE).
+
+s2earth_radius() ->
+    not_loaded(?LINE).
+
+s2earth_radius_km() ->
+    not_loaded(?LINE).
+
+s2earth_radius_meters() ->
+    not_loaded(?LINE).
+
+s2earth_lowest_altitude() ->
+    not_loaded(?LINE).
+
+s2earth_lowest_altitude_km() ->
+    not_loaded(?LINE).
+
+s2earth_lowest_altitude_meters() ->
+    not_loaded(?LINE).
+
+s2earth_highest_altitude() ->
+    not_loaded(?LINE).
+
+s2earth_highest_altitude_km() ->
+    not_loaded(?LINE).
+
+s2earth_highest_altitude_meters() ->
+    not_loaded(?LINE).
+
+
+
 init() ->
     SoName = case code:priv_dir(?APPNAME) of
         {error, bad_name} ->
@@ -572,3 +699,4 @@ init() ->
 
 not_loaded(Line) ->
     exit({not_loaded, [{module, ?MODULE}, {line, Line}]}).
+
