@@ -1,4 +1,4 @@
-#include "s2latlng.h"
+#include "s2/s2latlng.h"
 
 #include "nifpp_utils.h"
 #include "s2geo_nif.h"
@@ -260,7 +260,7 @@ ERL_NIF_TERM s2latlng_methods(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[
                 CHECK_ARGS_LENGTH(env, argc, 4);
                 S2LatLng other;
                 nifpp::get_throws(env, argv[2], other);
-                double max_error = get_double_from_term(env, argv[3]);
+                S1Angle max_error = nifpp::get<S1Angle>(env, nifpp::TERM(argv[3]));
                 return nifpp::make(env, self.ApproxEquals(other, max_error));
             }
 

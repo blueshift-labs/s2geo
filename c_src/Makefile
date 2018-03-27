@@ -57,10 +57,10 @@ endif
 
 CXXFLAGS+=  -g -std=c++11 -Wextra -fno-rtti \
       -Wno-unused-local-typedefs -Wno-unused-parameter -Wno-missing-field-initializers \
-      			-I $(BASEDIR)/_build/deps/s2-geometry-library/geometry \
-            -I $(BASEDIR)/_build/deps/s2-geometry-library/geometry/s2
+      			-I $(BASEDIR)/_build/deps/s2geometry/src \
+      			-I $(BASEDIR)/_build/deps/s2geometry/src/third_party/absl
 
-LDFLAGS +=  -L$(BASEDIR)/_build/deps/s2-geometry-library/build/ \
+LDFLAGS +=  -L$(BASEDIR)/_build/deps/s2geometry/build/ \
             -lstdc++ \
             -lssl \
             -ls2

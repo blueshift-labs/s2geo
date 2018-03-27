@@ -3,14 +3,14 @@
 
 #include "erl_nif.h"
 
-#include "s1angle.h"
-#include "r1interval.h"
-#include "s1interval.h"
-#include "s2region.h"
-#include "s2latlng.h"
-#include "s2cellid.h"
-#include "s2cell.h"
-#include "util/math/vector2.h"
+#include "s2/s1angle.h"
+#include "s2/r1interval.h"
+#include "s2/s1interval.h"
+#include "s2/s2region.h"
+#include "s2/s2latlng.h"
+#include "s2/s2cell_id.h"
+#include "s2/s2cell.h"
+#include "s2/util/math/vector.h"
 
 
 namespace nifpp
@@ -30,6 +30,12 @@ nifpp::TERM make(ErlNifEnv *env, const S1Interval &var);
 
 int get(ErlNifEnv *env, ERL_NIF_TERM term, S2Point &var);
 nifpp::TERM make(ErlNifEnv *env, const S2Point &var);
+
+//int get(ErlNifEnv *env, ERL_NIF_TERM term, R2Point &var);
+//nifpp::TERM make(ErlNifEnv *env, const R2Point &var);
+
+int get(ErlNifEnv *env, ERL_NIF_TERM term, R2Rect &var);
+nifpp::TERM make(ErlNifEnv *env, const R2Rect &var);
 
 int get(ErlNifEnv *env, ERL_NIF_TERM term, S2LatLng &var);
 nifpp::TERM make(ErlNifEnv *env, const S2LatLng &var);

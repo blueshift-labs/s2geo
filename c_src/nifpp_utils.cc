@@ -24,7 +24,7 @@ int nifpp::get(ErlNifEnv *env, ERL_NIF_TERM term, S2LatLng &var)
 
     int arity;
     const ERL_NIF_TERM *array;
-    int ret = enif_get_tuple(env, term, &arity, &array);
+    if(!enif_get_tuple(env, term, &arity, &array)) return 0;
     if (arity == 2){
         ERL_NIF_TERM first = *array;
         ERL_NIF_TERM second = *(array+1);
@@ -103,6 +103,47 @@ int nifpp::get(ErlNifEnv *env, ERL_NIF_TERM term, S2Point &var)
 nifpp::TERM nifpp::make(ErlNifEnv *env, const S2Point &var)
 {
     return nifpp::make(env, std::make_tuple(var.x(), var.y(), var.z()));
+}
+
+// int nifpp::get(ErlNifEnv *env, ERL_NIF_TERM term, R2Point &var)
+// {
+//     double x;
+//     double y;
+//     auto tuple = make_tuple(ref(x), ref(y));
+//     nifpp::get_throws(env, term, tuple);
+//     var = R2Point(x, y);
+//     return true;
+// }
+
+// nifpp::TERM nifpp::make(ErlNifEnv *env, const R2Point &var)
+// {
+//     return nifpp::make(env, std::make_tuple(var.x(), var.y()));
+// }
+
+int nifpp::get(ErlNifEnv *env, ERL_NIF_TERM term, R2Rect &var)
+{
+    double lo_x = 0.0;
+    double lo_y = 0.0;
+    auto tuple = make_tuple(ref(lo_x), ref(lo_y));
+    nifpp::get_throws(env, term, tuple);
+    auto r1 = R1Interval::FromPointPair(lo_x, lo_y);
+
+    double hi_x = 0.0;
+    double hi_y = 0.0;
+    auto tuple2 = make_tuple(ref(hi_x), ref(hi_y));
+    nifpp::get_throws(env, term, tuple2);
+    auto r2 = R1Interval::FromPointPair(hi_x, hi_y);
+
+    var = R2Rect(r1, r2);
+    return true;
+}
+
+nifpp::TERM nifpp::make(ErlNifEnv *env, const R2Rect &var)
+{
+    auto tuple_1 = nifpp::make(env, std::make_tuple(var.x().lo(), var.x().hi()));
+    auto tuple_2 = nifpp::make(env, std::make_tuple(var.y().lo(), var.y().hi()));
+
+    return nifpp::make(env, std::make_tuple(tuple_1, tuple_2));
 }
 
 

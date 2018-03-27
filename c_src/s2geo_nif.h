@@ -2,6 +2,7 @@
 #define S2GEO_C_SRC_S2GEO_H
 
 #include "erl_nif.h"
+#include <exception>
 
 struct atoms
 {
@@ -24,4 +25,7 @@ enum class S2RegionCoveringType {
   cell_union_covering             = 3,
   interior_cell_union_covering    = 4,
 };
+
+class check_failed_error{};
+
 #endif
