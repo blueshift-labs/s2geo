@@ -159,3 +159,16 @@ nifpp::TERM nifpp::make(ErlNifEnv *env, const S2CellId &var)
     uint64 id = var.id();
     return nifpp::make(env, static_cast<ErlNifUInt64>(id));
 }
+
+int nifpp::get(ErlNifEnv *env, ERL_NIF_TERM term, S1ChordAngle &var)
+{
+    double length2 = nifpp::get<double>(env, nifpp::TERM(term));
+    var = S1ChordAngle::FromLength2(length2);
+    return true;
+}
+
+nifpp::TERM nifpp::make(ErlNifEnv *env, const S1ChordAngle &var)
+{
+    double length2 = var.length2();
+    return nifpp::make(env, length2);
+}

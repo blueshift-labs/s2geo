@@ -1,45 +1,50 @@
-// #ifndef S2GEO_C_SRC_NIF_S2CAP_H
-// #define S2GEO_C_SRC_NIF_S2CAP_H
+#ifndef S2GEO_C_SRC_NIF_S2CAP_H
+#define S2GEO_C_SRC_NIF_S2CAP_H
 
-// enum class S2CapConstructors {
-//   from_center_height    = 1,
-//   from_center_angle     = 2,
-//   from_center_area      = 3,
-//   empty               = 4,
-//   full                = 5,
 
-// };
+ERL_NIF_TERM s2cap_from_s2point_s1angle(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2cap_from_s2point_s1chordangle(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2cap_from_point(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2cap_from_center_height(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2cap_from_center_area(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2cap_empty(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2cap_full(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
 
-// enum class S2CapMethods {
-//   clone               = 9,
+ERL_NIF_TERM s2cap_center(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2cap_radius(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2cap_height(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2cap_get_radius(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2cap_get_area(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2cap_get_centroid(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
 
-//   center              = 10,
-//   height              = 11,
-//   area                = 12,
-//   radius              = 13,
-//   is_valid            = 14,
-//   is_empty            = 15,
-//   is_full             = 16,
-//   complement          = 17,
+ERL_NIF_TERM s2cap_is_valid(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2cap_is_empty(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2cap_is_full(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
 
-//   contains            = 20,
-//   intersects          = 21,
-//   interior_intersects = 22,
-//   interior_contains   = 23,
-//   add_point           = 24,
-//   add_cap             = 25,
-//   expanded            = 26,
+ERL_NIF_TERM s2cap_complement(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2cap_contains(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2cap_intersects(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2cap_interior_intersects(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2cap_interior_contains(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
 
-//   get_cap_bound       = 30,
-//   get_rect_bound      = 31,
+ERL_NIF_TERM s2cap_add_point(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2cap_add_cap(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2cap_expanded(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2cap_union(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2cap_clone(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2cap_get_cap_bound(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2cap_get_rect_bound(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2cap_get_cell_union_bound(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2cap_contains_s2cellid(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2cap_contains_s2cell(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2cap_may_intersect_s2cellid(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2cap_may_intersect_s2cell(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2cap_contains_s2point(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
 
-//   contains_s2cellid   = 40,
-//   may_intersect_s2cellid  = 41,
-//   contains_s2point    = 42,
-// };
+ERL_NIF_TERM s2cap_encode(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2cap_decode(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2cap_equal(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2cap_approx_equals(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
 
-// ERL_NIF_TERM s2cap_constructor(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
-// ERL_NIF_TERM s2cap_methods(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
-// ERL_NIF_TERM s2region_coverer_get_covering_for_s2cap(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
-
-// #endif
+//ERL_NIF_TERM s2region_coverer_get_covering_for_s2cap(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+#endif

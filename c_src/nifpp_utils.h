@@ -11,6 +11,7 @@
 #include "s2/s2cell_id.h"
 #include "s2/s2cell.h"
 #include "s2/util/math/vector.h"
+#include "s2/s1chord_angle.h"
 
 
 namespace nifpp
@@ -42,6 +43,10 @@ nifpp::TERM make(ErlNifEnv *env, const S2LatLng &var);
 
 int get(ErlNifEnv *env, ERL_NIF_TERM term, S2CellId &var);
 nifpp::TERM make(ErlNifEnv *env, const S2CellId &var);
+
+
+int get(ErlNifEnv *env, ERL_NIF_TERM term, S1ChordAngle &var);
+nifpp::TERM make(ErlNifEnv *env, const S1ChordAngle &var);
 
 } // namespace nifpp
 
