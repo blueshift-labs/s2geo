@@ -15,7 +15,7 @@ ERL_NIF_TERM s2cellid_from_s2point(ErlNifEnv* env, int argc, const ERL_NIF_TERM 
     try {
         CHECK_ARGS_LENGTH(env, argc, 1);
         auto point = nifpp::get<S2Point>(env, argv[0]);
-        S2CellId cellId = S2CellId::S2CellId(point);
+        S2CellId cellId = S2CellId(point);
         return nifpp::make(env, cellId);
     }
     catch(nifpp::badarg) {}
@@ -28,7 +28,7 @@ ERL_NIF_TERM s2cellid_from_lat_lng(ErlNifEnv* env, int argc, const ERL_NIF_TERM 
     try {
         CHECK_ARGS_LENGTH(env, argc, 1);
         auto latLng = nifpp::get<S2LatLng>(env, argv[0]);
-        S2CellId cellId = S2CellId::S2CellId(latLng);
+        S2CellId cellId = S2CellId(latLng);
         return nifpp::make(env, cellId);
     }
     catch(nifpp::badarg) {}
