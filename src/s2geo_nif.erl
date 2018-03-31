@@ -2,12 +2,6 @@
 
 %% API exports
 -export([
-    % s1interval_constructor/1,
-    % s1interval_constructor/2,
-    % s1interval_constructor/3,
-    % s1interval_methods/2,
-    % s1interval_methods/3,
-    % s1interval_methods/4,
     s1interval_default_constructor/0,
     s1interval_empty/0,
     s1interval_full/0,
@@ -123,15 +117,50 @@
     % s2loop_get_covering/3,
     % s2loop_get_covering/4,
 
-    % s2cap_constructor/1,
-    % s2cap_constructor/3,
 
-    % s2cap_methods/2,
-    % s2cap_methods/3,
-    % s2cap_methods/4,
+    s2cap_from_s2point_s1angle/2,
+    s2cap_from_s2point_s1chordangle/2,
+    s2cap_from_point/1,
+    s2cap_from_center_height/2,
+    s2cap_from_center_area/2,
+    s2cap_empty/0,
+    s2cap_full/0,
 
-    % s2cap_get_covering/3,
-    % s2cap_get_covering/4,
+    s2cap_center/1,
+    s2cap_radius/1,
+    s2cap_height/1,
+    s2cap_get_radius/1,
+    s2cap_get_area/1,
+    s2cap_get_centroid/1,
+    s2cap_is_valid/1,
+    s2cap_is_empty/1,
+    s2cap_is_full/1,
+    s2cap_complement/1,
+
+    s2cap_contains/2,
+    s2cap_intersects/2,
+    s2cap_interior_intersects/2,
+    s2cap_interior_contains/2,
+
+    s2cap_add_point/2,
+    s2cap_add_cap/2,
+    s2cap_expanded/2,
+    s2cap_union/2,
+    s2cap_clone/1,
+    s2cap_get_cap_bound/1,
+    s2cap_get_rect_bound/1,
+    s2cap_get_cell_union_bound/1,
+
+    s2cap_contains_s2cellid/2,
+    s2cap_contains_s2cell/2,
+    s2cap_may_intersect_s2cellid/2,
+    s2cap_may_intersect_s2cell/2,
+    s2cap_contains_s2point/2,
+
+    s2cap_encode/1,
+    s2cap_decode/1,
+    s2cap_equal/2,
+    s2cap_approx_equals/3,
 
     s2latlng_constructor/1,
     s2latlng_constructor/2,
@@ -543,27 +572,119 @@ s2cellid_ij_level_to_bound_uv(_) ->
 %% S2Cap functions
 %%====================================================================
 
-% s2cap_constructor(_) ->
-%     not_loaded(?LINE).
+s2cap_from_s2point_s1angle(_, _) ->
+    not_loaded(?LINE).
 
-% s2cap_constructor(_, _, _) ->
-%     not_loaded(?LINE).
+s2cap_from_s2point_s1chordangle(_, _) ->
+    not_loaded(?LINE).
 
-% s2cap_methods(_, _) ->
-%     not_loaded(?LINE).
+s2cap_from_point(_) ->
+    not_loaded(?LINE).
 
-% s2cap_methods(_, _, _) ->
-%     not_loaded(?LINE).
+s2cap_from_center_height(_, _) ->
+    not_loaded(?LINE).
 
-% s2cap_methods(_, _, _, _) ->
-%     not_loaded(?LINE).
+s2cap_from_center_area(_, _) ->
+    not_loaded(?LINE).
 
-% s2cap_get_covering(_, _, _) ->
-%     not_loaded(?LINE).
+s2cap_empty() ->
+    not_loaded(?LINE).
 
-% s2cap_get_covering(_, _, _, _) ->
-%     not_loaded(?LINE).
+s2cap_full() ->
+    not_loaded(?LINE).
 
+s2cap_center(_) ->
+    not_loaded(?LINE).
+
+s2cap_radius(_) ->
+    not_loaded(?LINE).
+
+s2cap_height(_) ->
+    not_loaded(?LINE).
+
+s2cap_get_radius(_) ->
+    not_loaded(?LINE).
+
+s2cap_get_area(_) ->
+    not_loaded(?LINE).
+
+s2cap_get_centroid(_) ->
+    not_loaded(?LINE).
+
+s2cap_is_valid(_) ->
+    not_loaded(?LINE).
+
+s2cap_is_empty(_) ->
+    not_loaded(?LINE).
+
+s2cap_is_full(_) ->
+    not_loaded(?LINE).
+
+s2cap_complement(_) ->
+    not_loaded(?LINE).
+
+s2cap_contains(_, _) ->
+    not_loaded(?LINE).
+
+s2cap_intersects(_, _) ->
+    not_loaded(?LINE).
+
+s2cap_interior_intersects(_, _) ->
+    not_loaded(?LINE).
+
+s2cap_interior_contains(_, _) ->
+    not_loaded(?LINE).
+
+s2cap_add_point(_, _) ->
+    not_loaded(?LINE).
+
+s2cap_add_cap(_, _) ->
+    not_loaded(?LINE).
+
+s2cap_expanded(_, _) ->
+    not_loaded(?LINE).
+
+s2cap_union(_, _) ->
+    not_loaded(?LINE).
+
+s2cap_clone(_) ->
+    not_loaded(?LINE).
+
+s2cap_get_cap_bound(_) ->
+    not_loaded(?LINE).
+
+s2cap_get_rect_bound(_) ->
+    not_loaded(?LINE).
+
+s2cap_get_cell_union_bound(_) ->
+    not_loaded(?LINE).
+
+s2cap_contains_s2cellid(_, _) ->
+    not_loaded(?LINE).
+
+s2cap_contains_s2cell(_, _) ->
+    not_loaded(?LINE).
+
+s2cap_may_intersect_s2cellid(_, _) ->
+    not_loaded(?LINE).
+
+s2cap_may_intersect_s2cell(_, _) ->
+    not_loaded(?LINE).
+
+s2cap_contains_s2point(_, _) ->
+    not_loaded(?LINE).
+
+s2cap_encode(_) ->
+    not_loaded(?LINE).
+
+s2cap_decode(_) ->
+    not_loaded(?LINE).
+
+s2cap_equal(_, _) ->
+    not_loaded(?LINE).
+
+s2cap_approx_equals(_, _, _) ->
+    not_loaded(?LINE).
 
 %%====================================================================
 %% S2LatLng functions

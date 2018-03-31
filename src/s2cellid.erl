@@ -20,6 +20,7 @@
     new/0,
     sentinel/0,
     new_from_lat_lng/1,
+    new_from_face/1,
     new_from_face_pos_level/3,
     new_from_face_ij/3,
     level_begin/1,
@@ -55,6 +56,7 @@
     to_token/1,
     to_string/1,
     to_point/1,
+    to_point_raw/1,
     to_lat_lng/1,
     to_face_ij_orientation/1,
 
