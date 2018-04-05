@@ -93,14 +93,37 @@
     s2cellid_lsb_for_level/1,
     s2cellid_ij_level_to_bound_uv/1,
 
-
-    % s2latlngrect_constructor/1,
-    % s2latlngrect_constructor/2,
-    % s2latlngrect_constructor/3,
-    % s2latlngrect_methods/2,
-    % s2latlngrect_methods/3,
-    % s2latlngrect_get_covering/3,
-    % s2latlngrect_get_covering/4,
+    s2latlng_default_constructor/0,
+    s2latlng_from_s1angle_lat_lng/2,
+    s2latlng_from_point/1,
+    s2latlng_invalid/0,
+    s2latlng_from_radians/2,
+    s2latlng_from_degrees/2,
+    s2latlng_from_e5/2,
+    s2latlng_from_e6/2,
+    s2latlng_from_e7/2,
+    s2latlng_from_unsigned_e6/2,
+    s2latlng_from_unsigned_e7/2,
+    s2latlng_latitude/1,
+    s2latlng_longitude/1,
+    s2latlng_lat/1,
+    s2latlng_lng/1,
+    s2latlng_coords/1,
+    s2latlng_is_valid/1,
+    s2latlng_normalized/1,
+    s2latlng_to_point/1,
+    s2latlng_get_distance/2,
+    s2latlng_add/2,
+    s2latlng_subtract/2,
+    s2latlng_multiply/2,
+    s2latlng_eq/2,
+    s2latlng_neq/2,
+    s2latlng_lt/2,
+    s2latlng_gt/2,
+    s2latlng_leq/2,
+    s2latlng_geq/2,
+    s2latlng_approx_equals/3,
+    s2latlng_to_string_in_degrees/1,
 
     % s2cellunion_constructor/2,
     % s2cellunion_constructor/3,
@@ -497,26 +520,98 @@ s2cellid_ij_level_to_bound_uv(_) ->
 %% S2LatLngRect functions
 %%====================================================================
 
-% s2latlngrect_constructor(_) ->
-%     not_loaded(?LINE).
+s2latlng_default_constructor() ->
+    not_loaded(?LINE).
 
-% s2latlngrect_constructor(_, _) ->
-%     not_loaded(?LINE).
+s2latlng_from_s1angle_lat_lng(_, _)  ->
+    not_loaded(?LINE).
 
-% s2latlngrect_constructor(_, _, _) ->
-%     not_loaded(?LINE).
+s2latlng_from_point(_)  ->
+    not_loaded(?LINE).
 
-% s2latlngrect_methods(_, _) ->
-%     not_loaded(?LINE).
+s2latlng_invalid() ->
+    not_loaded(?LINE).
 
-% s2latlngrect_methods(_, _, _) ->
-%     not_loaded(?LINE).
+s2latlng_from_radians(_, _)  ->
+    not_loaded(?LINE).
 
-% s2latlngrect_get_covering(_, _, _, _) ->
-%     not_loaded(?LINE).
+s2latlng_from_degrees(_, _)  ->
+    not_loaded(?LINE).
 
-% s2latlngrect_get_covering(_, _, _) ->
-%     not_loaded(?LINE).
+s2latlng_from_e5(_, _) ->
+    not_loaded(?LINE).
+
+s2latlng_from_e6(_, _) ->
+    not_loaded(?LINE).
+
+s2latlng_from_e7(_, _) ->
+    not_loaded(?LINE).
+
+s2latlng_from_unsigned_e6(_, _) ->
+    not_loaded(?LINE).
+
+s2latlng_from_unsigned_e7(_, _) ->
+    not_loaded(?LINE).
+
+s2latlng_latitude(_) ->
+    not_loaded(?LINE).
+
+s2latlng_longitude(_) ->
+    not_loaded(?LINE).
+
+s2latlng_lat(_) ->
+    not_loaded(?LINE).
+
+s2latlng_lng(_) ->
+    not_loaded(?LINE).
+
+s2latlng_coords(_) ->
+    not_loaded(?LINE).
+
+s2latlng_is_valid(_) ->
+    not_loaded(?LINE).
+
+s2latlng_normalized(_) ->
+    not_loaded(?LINE).
+
+s2latlng_to_point(_) ->
+    not_loaded(?LINE).
+
+s2latlng_get_distance(_, _) ->
+    not_loaded(?LINE).
+
+s2latlng_add(_, _) ->
+    not_loaded(?LINE).
+
+s2latlng_subtract(_, _) ->
+    not_loaded(?LINE).
+
+s2latlng_multiply(_, _) ->
+    not_loaded(?LINE).
+
+s2latlng_eq(_, _) ->
+    not_loaded(?LINE).
+
+s2latlng_neq(_, _) ->
+    not_loaded(?LINE).
+
+s2latlng_lt(_, _) ->
+    not_loaded(?LINE).
+
+s2latlng_gt(_, _) ->
+    not_loaded(?LINE).
+
+s2latlng_leq(_, _) ->
+    not_loaded(?LINE).
+
+s2latlng_geq(_, _) ->
+    not_loaded(?LINE).
+
+s2latlng_approx_equals(_, _, _) ->
+    not_loaded(?LINE).
+
+s2latlng_to_string_in_degrees(_) ->
+    not_loaded(?LINE).
 
 %%====================================================================
 %% S2 Cell Union functions

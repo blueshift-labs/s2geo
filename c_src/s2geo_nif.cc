@@ -221,12 +221,42 @@ static ErlNifFunc nif_funcs[] = {
     {"s2cap_approx_equals", 3, s2cap_approx_equals},
 
 
-    {"s2latlng_constructor",        1, s2latlng_constructor},
-    {"s2latlng_constructor",        2, s2latlng_constructor},
-    {"s2latlng_constructor",        3, s2latlng_constructor},
-    {"s2latlng_methods",            2, s2latlng_methods},
-    {"s2latlng_methods",            3, s2latlng_methods},
-    {"s2latlng_methods",            4, s2latlng_methods},
+    {"s2latlng_default_constructor", 0, s2latlng_default_constructor},
+    {"s2latlng_from_s1angle_lat_lng", 2, s2latlng_from_s1angle_lat_lng},
+    {"s2latlng_from_point", 1, s2latlng_from_point},
+    {"s2latlng_invalid", 0, s2latlng_invalid},
+    {"s2latlng_from_radians", 2, s2latlng_from_radians},
+    {"s2latlng_from_degrees", 2, s2latlng_from_degrees},
+    {"s2latlng_from_e5", 2, s2latlng_from_e5},
+    {"s2latlng_from_e6", 2, s2latlng_from_e6},
+    {"s2latlng_from_e7", 2, s2latlng_from_e7},
+    {"s2latlng_from_unsigned_e6", 2, s2latlng_from_unsigned_e6},
+    {"s2latlng_from_unsigned_e7", 2, s2latlng_from_unsigned_e7},
+
+    {"s2latlng_latitude", 1, s2latlng_latitude},
+    {"s2latlng_longitude", 1, s2latlng_longitude},
+
+    {"s2latlng_lat", 1, s2latlng_lat},
+    {"s2latlng_lng", 1, s2latlng_lng},
+    {"s2latlng_coords", 1, s2latlng_coords},
+    {"s2latlng_is_valid", 1, s2latlng_is_valid},
+    {"s2latlng_normalized", 1, s2latlng_normalized},
+    {"s2latlng_to_point", 1, s2latlng_to_point},
+    {"s2latlng_get_distance", 2, s2latlng_get_distance},
+
+    {"s2latlng_add", 2, s2latlng_add},
+    {"s2latlng_subtract", 2, s2latlng_subtract},
+    {"s2latlng_multiply", 2, s2latlng_multiply},
+
+    {"s2latlng_eq", 2, s2latlng_eq},
+    {"s2latlng_neq", 2, s2latlng_neq},
+    {"s2latlng_lt", 2, s2latlng_lt},
+    {"s2latlng_gt", 2, s2latlng_gt},
+    {"s2latlng_leq", 2, s2latlng_leq},
+    {"s2latlng_geq", 2, s2latlng_geq},
+
+    {"s2latlng_approx_equals", 3, s2latlng_approx_equals},
+    {"s2latlng_to_string_in_degrees", 1, s2latlng_to_string_in_degrees},
 
 
     {"s2earth_to_s1angle", 1, s2earth_to_s1angle},
