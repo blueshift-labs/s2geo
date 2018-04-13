@@ -125,13 +125,42 @@
     s2latlng_approx_equals/3,
     s2latlng_to_string_in_degrees/1,
 
-    % s2cellunion_constructor/2,
-    % s2cellunion_constructor/3,
-    % s2cellunion_methods/2,
-    % s2cellunion_methods/3,
-    % s2cellunion_methods/4,
-    % s2cellunion_get_covering/3,
-    % s2cellunion_get_covering/4,
+    s2cellunion_new_from_cellids/1,
+    s2cellunion_new_from_normalized_cellids/1,
+    s2cellunion_new_from_min_max/2,
+    s2cellunion_new_from_begin_end/2,
+    s2cellunion_num_cells/1,
+    s2cellunion_cell_id/2,
+    s2cellunion_cell_ids/1,
+    s2cellunion_is_valid/1,
+    s2cellunion_is_normalized/1,
+    s2cellunion_normalize/1,
+    s2cellunion_denormalize/3,
+    s2cellunion_pack/2,
+    s2cellunion_contains_s2cellid/2,
+    s2cellunion_intersects_s2cellid/2,
+    s2cellunion_contains_s2cellunion/2,
+    s2cellunion_intersects_s2cellunion/2,
+    s2cellunion_union/2,
+    s2cellunion_intersection/2,
+    s2cellunion_intersection_with_s2cellid/2,
+    s2cellunion_difference/2,
+    s2cellunion_expand_level/2,
+    s2cellunion_expand_radius/3,
+    s2cellunion_leaf_cells_covered/1,
+    s2cellunion_average_based_area/1,
+    s2cellunion_approx_area/1,
+    s2cellunion_exact_area/1,
+    s2cellunion_get_cap_bound/1,
+    s2cellunion_get_rect_bound/1,
+    s2cellunion_equal/2,
+    s2cellunion_not_equal/2,
+    s2cellunion_contains_s2cell/2,
+    s2cellunion_may_intersect_s2cellid/2,
+    s2cellunion_may_intersect_s2cell/2,
+    s2cellunion_contains_s2point/2,
+    s2cellunion_encode/1,
+    s2cellunion_decode/1,
 
     % s2loop_constructor/2,
     % s2loop_methods/2,
@@ -185,12 +214,70 @@
     s2cap_equal/2,
     s2cap_approx_equals/3,
 
-    s2latlng_constructor/1,
-    s2latlng_constructor/2,
-    s2latlng_constructor/3,
-    s2latlng_methods/2,
-    s2latlng_methods/3,
-    s2latlng_methods/4,
+    s2latlngrect_from_lat_lng/2,
+    s2latlngrect_from_r1inteval_s1interval/2,
+    s2latlngrect_from_center_size/2,
+    s2latlngrect_from_point/1,
+    s2latlngrect_from_point_pair/2,
+    s2latlngrect_empty/0,
+    s2latlngrect_full/0,
+    s2latlngrect_full_lat/0,
+    s2latlngrect_full_lng/0,
+
+    s2latlngrect_lat_lo/1,
+    s2latlngrect_lat_hi/1,
+    s2latlngrect_lng_lo/1,
+    s2latlngrect_lng_hi/1,
+    s2latlngrect_lat/1,
+    s2latlngrect_lng/1,
+    s2latlngrect_lo/1,
+    s2latlngrect_hi/1,
+    s2latlngrect_is_valid/1,
+    s2latlngrect_is_empty/1,
+    s2latlngrect_is_full/1,
+    s2latlngrect_is_point/1,
+    s2latlngrect_is_inverted/1,
+    s2latlngrect_get_vertex/1,
+    s2latlngrect_get_center/1,
+    s2latlngrect_get_size/1,
+    s2latlngrect_area/1,
+    s2latlngrect_contains_s2latlng/2,
+    s2latlngrect_interior_contains_s2point/2,
+    s2latlngrect_interior_contains_s2latlng/2,
+    s2latlngrect_contains_s2latlngrect/2,
+    s2latlngrect_interior_contains_s2latlngrect/2,
+    s2latlngrect_intersects_s2latlngrect/2,
+    s2latlngrect_intersects_s2cell_with_id/2,
+    s2latlngrect_interior_intersects_s2latlngrect/2,
+    s2latlngrect_boundary_intersects/3,
+    s2latlngrect_contains_s2cell_with_id/2,
+    s2latlngrect_contains_s2point/2,
+    s2latlngrect_may_intersect_s2cell_with_id/2,
+    s2latlngrect_expanded/2,
+    s2latlngrect_union/2,
+    s2latlngrect_intersection/2,
+
+    s2latlngrect_add_point_s2latlng/2,
+    s2latlngrect_add_point/2,
+    s2latlngrect_get_distance/2,
+    s2latlngrect_get_distance_s2latlng/2,
+    s2latlngrect_get_directed_hausdorff_distance/2,
+    s2latlngrect_get_hausdorff_distance/2,
+    s2latlngrect_equal/2,
+    s2latlngrect_not_equal/2,
+
+    s2latlngrect_approx_equals_with_s1angle_error/2,
+    s2latlngrect_approx_equals_with_s1angle_error/3,
+    s2latlngrect_approx_equals_with_s2latlng_error/3,
+
+    s2latlngrect_get_cap_bound/1,
+    s2latlngrect_get_rect_bound/1,
+
+    s2latlngrect_decode/1,
+    s2latlngrect_encode/1,
+
+    s2latlngrect_intersects_lng_edge/4,
+    s2latlngrect_intersects_lat_edge/4,
 
     s2earth_to_s1angle/1,
     s2earth_to_distance/1,
@@ -617,27 +704,121 @@ s2latlng_to_string_in_degrees(_) ->
 %% S2 Cell Union functions
 %%====================================================================
 
-% s2cellunion_constructor(_, _) ->
-%     not_loaded(?LINE).
+s2cellunion_new_from_cellids(_) ->
+    not_loaded(?LINE).
 
-% s2cellunion_constructor(_, _, _) ->
-%     not_loaded(?LINE).
+s2cellunion_new_from_normalized_cellids(_) ->
+    not_loaded(?LINE).
 
-% s2cellunion_methods(_, _) ->
-%     not_loaded(?LINE).
+s2cellunion_new_from_min_max(_, _) ->
+    not_loaded(?LINE).
 
-% s2cellunion_methods(_, _, _) ->
-%     not_loaded(?LINE).
+s2cellunion_new_from_begin_end(_, _) ->
+    not_loaded(?LINE).
 
-% s2cellunion_methods(_, _, _, _) ->
-%     not_loaded(?LINE).
 
-% s2cellunion_get_covering(_, _, _) ->
-%     not_loaded(?LINE).
+s2cellunion_num_cells(_) ->
+    not_loaded(?LINE).
 
-% s2cellunion_get_covering(_, _, _, _) ->
-%     not_loaded(?LINE).
+s2cellunion_cell_id(_, _) ->
+    not_loaded(?LINE).
 
+s2cellunion_cell_ids(_) ->
+    not_loaded(?LINE).
+
+s2cellunion_is_valid(_) ->
+    not_loaded(?LINE).
+
+s2cellunion_is_normalized(_) ->
+    not_loaded(?LINE).
+
+s2cellunion_normalize(_) ->
+    not_loaded(?LINE).
+
+s2cellunion_denormalize(_, _, _) ->
+    not_loaded(?LINE).
+
+s2cellunion_pack(_, _) ->
+    not_loaded(?LINE).
+
+
+s2cellunion_contains_s2cellid(_, _) ->
+    not_loaded(?LINE).
+
+s2cellunion_intersects_s2cellid(_, _) ->
+    not_loaded(?LINE).
+
+
+s2cellunion_contains_s2cellunion(_, _) ->
+    not_loaded(?LINE).
+
+s2cellunion_intersects_s2cellunion(_, _) ->
+    not_loaded(?LINE).
+
+
+s2cellunion_union(_, _) ->
+    not_loaded(?LINE).
+
+s2cellunion_intersection(_, _) ->
+    not_loaded(?LINE).
+
+s2cellunion_intersection_with_s2cellid(_, _) ->
+    not_loaded(?LINE).
+
+s2cellunion_difference(_, _) ->
+    not_loaded(?LINE).
+
+
+s2cellunion_expand_level(_, _) ->
+    not_loaded(?LINE).
+
+s2cellunion_expand_radius(_, _, _) ->
+    not_loaded(?LINE).
+
+s2cellunion_leaf_cells_covered(_) ->
+    not_loaded(?LINE).
+
+s2cellunion_average_based_area(_) ->
+    not_loaded(?LINE).
+
+s2cellunion_approx_area(_) ->
+    not_loaded(?LINE).
+
+s2cellunion_exact_area(_) ->
+    not_loaded(?LINE).
+
+
+s2cellunion_get_cap_bound(_) ->
+    not_loaded(?LINE).
+
+s2cellunion_get_rect_bound(_) ->
+    not_loaded(?LINE).
+
+s2cellunion_equal(_, _) ->
+    not_loaded(?LINE).
+
+s2cellunion_not_equal(_, _) ->
+    not_loaded(?LINE).
+
+
+s2cellunion_contains_s2cell(_, _) ->
+    not_loaded(?LINE).
+
+s2cellunion_may_intersect_s2cellid(_, _) ->
+    not_loaded(?LINE).
+
+s2cellunion_may_intersect_s2cell(_, _) ->
+    not_loaded(?LINE).
+
+s2cellunion_contains_s2point(_, _) ->
+    not_loaded(?LINE).
+
+
+s2cellunion_encode(_) ->
+    not_loaded(?LINE).
+
+s2cellunion_decode(_) ->
+    not_loaded(?LINE).
 
 
 %%====================================================================
@@ -782,26 +963,190 @@ s2cap_approx_equals(_, _, _) ->
     not_loaded(?LINE).
 
 %%====================================================================
-%% S2LatLng functions
+%% S2LatLngRect functions
 %%====================================================================
 
-s2latlng_constructor(_) ->
+s2latlngrect_from_lat_lng(_, _) ->
     not_loaded(?LINE).
 
-s2latlng_constructor(_, _) ->
+s2latlngrect_from_r1inteval_s1interval(_, _) ->
     not_loaded(?LINE).
 
-s2latlng_constructor(_, _, _) ->
+s2latlngrect_from_center_size(_, _) ->
     not_loaded(?LINE).
 
-s2latlng_methods(_, _) ->
+s2latlngrect_from_point(_) ->
     not_loaded(?LINE).
 
-s2latlng_methods(_, _, _) ->
+s2latlngrect_from_point_pair(_, _) ->
     not_loaded(?LINE).
 
-s2latlng_methods(_, _, _, _) ->
+s2latlngrect_empty() ->
     not_loaded(?LINE).
+
+s2latlngrect_full() ->
+    not_loaded(?LINE).
+
+s2latlngrect_full_lat() ->
+    not_loaded(?LINE).
+
+s2latlngrect_full_lng() ->
+    not_loaded(?LINE).
+
+
+s2latlngrect_lat_lo(_) ->
+    not_loaded(?LINE).
+
+s2latlngrect_lat_hi(_) ->
+    not_loaded(?LINE).
+
+s2latlngrect_lng_lo(_) ->
+    not_loaded(?LINE).
+
+s2latlngrect_lng_hi(_) ->
+    not_loaded(?LINE).
+
+s2latlngrect_lat(_) ->
+    not_loaded(?LINE).
+
+s2latlngrect_lng(_) ->
+    not_loaded(?LINE).
+
+s2latlngrect_lo(_) ->
+    not_loaded(?LINE).
+
+s2latlngrect_hi(_) ->
+    not_loaded(?LINE).
+
+s2latlngrect_is_valid(_) ->
+    not_loaded(?LINE).
+
+s2latlngrect_is_empty(_) ->
+    not_loaded(?LINE).
+
+s2latlngrect_is_full(_) ->
+    not_loaded(?LINE).
+
+s2latlngrect_is_point(_) ->
+    not_loaded(?LINE).
+
+s2latlngrect_is_inverted(_) ->
+    not_loaded(?LINE).
+
+s2latlngrect_get_vertex(_) ->
+    not_loaded(?LINE).
+
+s2latlngrect_get_center(_) ->
+    not_loaded(?LINE).
+
+s2latlngrect_get_size(_) ->
+    not_loaded(?LINE).
+
+s2latlngrect_area(_) ->
+    not_loaded(?LINE).
+
+s2latlngrect_contains_s2latlng(_, _) ->
+    not_loaded(?LINE).
+
+s2latlngrect_interior_contains_s2point(_, _) ->
+    not_loaded(?LINE).
+
+s2latlngrect_interior_contains_s2latlng(_, _) ->
+    not_loaded(?LINE).
+
+s2latlngrect_contains_s2latlngrect(_, _) ->
+    not_loaded(?LINE).
+
+s2latlngrect_interior_contains_s2latlngrect(_, _) ->
+    not_loaded(?LINE).
+
+s2latlngrect_intersects_s2latlngrect(_, _) ->
+    not_loaded(?LINE).
+
+s2latlngrect_intersects_s2cell_with_id(_, _) ->
+    not_loaded(?LINE).
+
+s2latlngrect_interior_intersects_s2latlngrect(_, _) ->
+    not_loaded(?LINE).
+
+s2latlngrect_boundary_intersects(_, _, _) ->
+    not_loaded(?LINE).
+
+
+s2latlngrect_contains_s2cell_with_id(_, _) ->
+    not_loaded(?LINE).
+
+s2latlngrect_contains_s2point(_, _) ->
+    not_loaded(?LINE).
+
+s2latlngrect_may_intersect_s2cell_with_id(_, _) ->
+    not_loaded(?LINE).
+
+s2latlngrect_expanded(_, _) ->
+    not_loaded(?LINE).
+
+s2latlngrect_union(_, _) ->
+    not_loaded(?LINE).
+
+s2latlngrect_intersection(_, _) ->
+    not_loaded(?LINE).
+
+
+s2latlngrect_add_point_s2latlng(_, _) ->
+    not_loaded(?LINE).
+
+s2latlngrect_add_point(_, _) ->
+    not_loaded(?LINE).
+
+s2latlngrect_get_distance(_, _) ->
+    not_loaded(?LINE).
+
+s2latlngrect_get_distance_s2latlng(_, _) ->
+    not_loaded(?LINE).
+
+s2latlngrect_get_directed_hausdorff_distance(_, _) ->
+    not_loaded(?LINE).
+
+s2latlngrect_get_hausdorff_distance(_, _) ->
+    not_loaded(?LINE).
+
+s2latlngrect_equal(_, _) ->
+    not_loaded(?LINE).
+
+s2latlngrect_not_equal(_, _) ->
+    not_loaded(?LINE).
+
+
+s2latlngrect_approx_equals_with_s1angle_error(_, _) ->
+    not_loaded(?LINE).
+
+s2latlngrect_approx_equals_with_s1angle_error(_, _, _) ->
+    not_loaded(?LINE).
+
+s2latlngrect_approx_equals_with_s2latlng_error(_, _, _) ->
+    not_loaded(?LINE).
+
+
+s2latlngrect_get_cap_bound(_) ->
+    not_loaded(?LINE).
+
+s2latlngrect_get_rect_bound(_) ->
+    not_loaded(?LINE).
+
+
+s2latlngrect_decode(_) ->
+    not_loaded(?LINE).
+
+s2latlngrect_encode(_) ->
+    not_loaded(?LINE).
+
+
+s2latlngrect_intersects_lng_edge(_, _, _, _) ->
+    not_loaded(?LINE).
+
+s2latlngrect_intersects_lat_edge(_, _, _, _) ->
+    not_loaded(?LINE).
+
 
 %%====================================================================
 %% S2Earth functions
