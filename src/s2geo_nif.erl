@@ -24,12 +24,15 @@
     s1interval_contains_double/2,
     s1interval_contains/2,
     s1interval_interior_contains/2,
+    s1interval_intersects/2,
+    s1interval_interior_intersects/2,
     s1interval_get_directed_hausdorff_distance/2,
     s1interval_add_point/2,
     s1interval_project/2,
     s1interval_expanded/2,
     s1interval_union/2,
     s1interval_intersection/2,
+    s1interval_equals/2,
     s1interval_approx_equals/3,
 
     s2cellid_from_s2point/1,
@@ -434,6 +437,12 @@ s1interval_contains(_, _) ->
 s1interval_interior_contains(_, _) ->
     not_loaded(?LINE).
 
+s1interval_intersects(_, _) ->
+    not_loaded(?LINE).
+
+s1interval_interior_intersects(_, _) ->
+    not_loaded(?LINE).
+
 s1interval_get_directed_hausdorff_distance(_, _) ->
     not_loaded(?LINE).
 
@@ -450,6 +459,9 @@ s1interval_union(_, _) ->
     not_loaded(?LINE).
 
 s1interval_intersection(_, _) ->
+    not_loaded(?LINE).
+
+s1interval_equals(_, _) ->
     not_loaded(?LINE).
 
 s1interval_approx_equals(_, _, _) ->

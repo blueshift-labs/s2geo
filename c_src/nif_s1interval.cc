@@ -282,6 +282,39 @@ ERL_NIF_TERM s1interval_interior_contains(ErlNifEnv* env, int argc, const ERL_NI
     return enif_make_badarg(env);
 }
 
+
+ERL_NIF_TERM s1interval_intersects(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
+{
+    try {
+        CHECK_ARGS_LENGTH(env, argc, 2);
+        S1Interval self;
+        nifpp::get_throws(env, argv[0], self);
+
+        S1Interval other = nifpp::get<S1Interval>(env, nifpp::TERM(argv[1]));
+        return nifpp::make(env, self.Intersects(other));
+    }
+    catch(nifpp::badarg) {}
+    catch(...){ return ATOMS.atomInternalError;}
+    return enif_make_badarg(env);
+}
+
+
+ERL_NIF_TERM s1interval_interior_intersects(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
+{
+    try {
+        CHECK_ARGS_LENGTH(env, argc, 2);
+        S1Interval self;
+        nifpp::get_throws(env, argv[0], self);
+
+        S1Interval other = nifpp::get<S1Interval>(env, nifpp::TERM(argv[1]));
+        return nifpp::make(env, self.InteriorIntersects(other));
+    }
+    catch(nifpp::badarg) {}
+    catch(...){ return ATOMS.atomInternalError;}
+    return enif_make_badarg(env);
+}
+
+
 ERL_NIF_TERM s1interval_get_directed_hausdorff_distance(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
 {
     try {
@@ -371,6 +404,22 @@ ERL_NIF_TERM s1interval_intersection(ErlNifEnv* env, int argc, const ERL_NIF_TER
     catch(...){ return ATOMS.atomInternalError;}
     return enif_make_badarg(env);
 }
+
+ERL_NIF_TERM s1interval_equals(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
+{
+    try {
+        CHECK_ARGS_LENGTH(env, argc, 3);
+        S1Interval self;
+        nifpp::get_throws(env, argv[0], self);
+
+        S1Interval other = nifpp::get<S1Interval>(env, nifpp::TERM(argv[1]));
+        return nifpp::make(env, (self == other));
+    }
+    catch(nifpp::badarg) {}
+    catch(...){ return ATOMS.atomInternalError;}
+    return enif_make_badarg(env);
+}
+
 
 ERL_NIF_TERM s1interval_approx_equals(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
 {
