@@ -162,13 +162,51 @@
     s2cellunion_encode/1,
     s2cellunion_decode/1,
 
-    % s2loop_constructor/2,
-    % s2loop_methods/2,
-    % s2loop_methods/3,
-    % s2loop_methods/4,
-    % s2loop_get_covering/3,
-    % s2loop_get_covering/4,
-
+    s2loop_new_from_s2point_list/1,
+    s2loop_new_from_s2latlng_list/1,
+    s2loop_new_from_s2cellid/1,
+    s2loop_new_from_s2cell/1,
+    s2loop_is_valid/1,
+    s2loop_num_vertices/1,
+    s2loop_vertex/2,
+    s2loop_oriented_vertex/2,
+    s2loop_is_empty/1,
+    s2loop_is_full/1,
+    s2loop_is_empty_or_full/1,
+    s2loop_depth/1,
+    s2loop_set_depth/2,
+    s2loop_is_hole/1,
+    s2loop_sign/1,
+    s2loop_is_normalized/1,
+    s2loop_normalize/1,
+    s2loop_invert/1,
+    s2loop_get_area/1,
+    s2loop_get_centroid/1,
+    s2loop_get_turning_angle/1,
+    s2loop_get_turning_angle_max_error/1,
+    s2loop_get_distance/2,
+    s2loop_get_distance_to_boundary/2,
+    s2loop_project/2,
+    s2loop_project_to_boundary/2,
+    s2loop_contains_s2loop/2,
+    s2loop_contains_s2cell/2,
+    s2loop_contains_s2cellid/2,
+    s2loop_contains_s2point/2,
+    s2loop_intersects/2,
+    s2loop_equals/2,
+    s2loop_boundary_equals/2,
+    s2loop_boundary_approx_equals/3,
+    s2loop_boundary_near/3,
+    s2loop_clone/1,
+    s2loop_get_cap_bound/1,
+    s2loop_get_rect_bound/1,
+    s2loop_may_intersect_s2cell/2,
+    s2loop_may_intersect_s2cellid/2,
+    s2loop_encode/1,
+    s2loop_decode/1,
+    s2loop_contains_nested/2,
+    s2loop_compare_boundary/2,
+    s2loop_contains_non_crossing_boundary/3,
 
     s2cap_from_s2point_s1angle/2,
     s2cap_from_s2point_s1chordangle/2,
@@ -825,23 +863,155 @@ s2cellunion_decode(_) ->
 %% S2 Loop functions
 %%====================================================================
 
-% s2loop_constructor(_, _) ->
-%     not_loaded(?LINE).
+s2loop_new_from_s2point_list(_) ->
+    not_loaded(?LINE).
 
-% s2loop_methods(_, _) ->
-%     not_loaded(?LINE).
+s2loop_new_from_s2latlng_list(_) ->
+    not_loaded(?LINE).
 
-% s2loop_methods(_, _, _) ->
-%     not_loaded(?LINE).
+s2loop_new_from_s2cellid(_) ->
+    not_loaded(?LINE).
 
-% s2loop_methods(_, _, _, _) ->
-%     not_loaded(?LINE).
+s2loop_new_from_s2cell(_) ->
+    not_loaded(?LINE).
 
-% s2loop_get_covering(_, _, _) ->
-%     not_loaded(?LINE).
 
-% s2loop_get_covering(_, _, _, _) ->
-%     not_loaded(?LINE).
+s2loop_is_valid(_) ->
+    not_loaded(?LINE).
+
+s2loop_num_vertices(_) ->
+    not_loaded(?LINE).
+
+s2loop_vertex(_, _) ->
+    not_loaded(?LINE).
+
+s2loop_oriented_vertex(_, _) ->
+    not_loaded(?LINE).
+
+s2loop_is_empty(_) ->
+    not_loaded(?LINE).
+
+s2loop_is_full(_) ->
+    not_loaded(?LINE).
+
+s2loop_is_empty_or_full(_) ->
+    not_loaded(?LINE).
+
+
+s2loop_depth(_) ->
+    not_loaded(?LINE).
+
+s2loop_set_depth(_, _) ->
+    not_loaded(?LINE).
+
+
+s2loop_is_hole(_) ->
+    not_loaded(?LINE).
+
+s2loop_sign(_) ->
+    not_loaded(?LINE).
+
+
+s2loop_is_normalized(_) ->
+    not_loaded(?LINE).
+
+s2loop_normalize(_) ->
+    not_loaded(?LINE).
+
+
+s2loop_invert(_) ->
+    not_loaded(?LINE).
+
+
+s2loop_get_area(_) ->
+    not_loaded(?LINE).
+
+s2loop_get_centroid(_) ->
+    not_loaded(?LINE).
+
+s2loop_get_turning_angle(_) ->
+    not_loaded(?LINE).
+
+s2loop_get_turning_angle_max_error(_) ->
+    not_loaded(?LINE).
+
+
+s2loop_get_distance(_, _) ->
+    not_loaded(?LINE).
+
+s2loop_get_distance_to_boundary(_, _) ->
+    not_loaded(?LINE).
+
+s2loop_project(_, _) ->
+    not_loaded(?LINE).
+
+s2loop_project_to_boundary(_, _) ->
+    not_loaded(?LINE).
+
+
+s2loop_contains_s2loop(_, _) ->
+    not_loaded(?LINE).
+
+s2loop_contains_s2cell(_, _) ->
+    not_loaded(?LINE).
+
+s2loop_contains_s2cellid(_, _) ->
+    not_loaded(?LINE).
+
+s2loop_contains_s2point(_, _) ->
+    not_loaded(?LINE).
+
+
+s2loop_intersects(_, _) ->
+    not_loaded(?LINE).
+
+s2loop_equals(_, _) ->
+    not_loaded(?LINE).
+
+s2loop_boundary_equals(_, _) ->
+    not_loaded(?LINE).
+
+s2loop_boundary_approx_equals(_, _, _) ->
+    not_loaded(?LINE).
+
+s2loop_boundary_near(_, _, _) ->
+    not_loaded(?LINE).
+
+
+s2loop_clone(_) ->
+    not_loaded(?LINE).
+
+
+s2loop_get_cap_bound(_) ->
+    not_loaded(?LINE).
+
+s2loop_get_rect_bound(_) ->
+    not_loaded(?LINE).
+
+
+s2loop_may_intersect_s2cell(_, _) ->
+    not_loaded(?LINE).
+
+s2loop_may_intersect_s2cellid(_, _) ->
+    not_loaded(?LINE).
+
+
+s2loop_encode(_) ->
+    not_loaded(?LINE).
+
+s2loop_decode(_) ->
+    not_loaded(?LINE).
+
+
+s2loop_contains_nested(_, _) ->
+    not_loaded(?LINE).
+
+
+s2loop_compare_boundary(_, _) ->
+    not_loaded(?LINE).
+
+s2loop_contains_non_crossing_boundary(_, _, _) ->
+    not_loaded(?LINE).
 
 
 %%====================================================================

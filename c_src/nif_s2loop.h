@@ -1,45 +1,89 @@
-// #ifndef S2GEO_C_SRC_NIF_S2LOOP_H
-// #define S2GEO_C_SRC_NIF_S2LOOP_H
+#ifndef S2GEO_C_SRC_NIF_S2LOOP_H
+#define S2GEO_C_SRC_NIF_S2LOOP_H
 
-// enum class S2LoopConstructors {
-//   from_s2point_list    = 1,
-//   from_s2latlng_list   = 2,
-//   from_s2cellid        = 3,
-//   decode               = 4,
-//   invert               = 5,
-// };
+#include <mutex>
+#include "s2/s2loop.h"
 
-// enum class S2LoopMethods {
-//   is_valid           = 10,
-//   depth              = 11,
-//   is_hole            = 12,
-//   sign               = 13,
-//   num_vertices       = 14,
-//   vertex             = 15,
-//   is_normalized      = 16,
-//   normalize          = 17, // Not implemented
-//   invert             = 18,  // Use Constructor
-//   get_area           = 19,
-//   get_centroid       = 20,
-//   get_turning_angle  = 21,
-//   contains           = 22,
-//   intersects         = 23,
-//   contains_nested    = 24,
-//   contains_or_crosses     = 25,
-//   boundary_equals    = 26,
-//   boundary_approx_equals  = 27,
-//   boundary_near      = 28,
+class NifS2LoopRef
+{
+public:
+  S2Loop *s2loop;
+  std::mutex mutex;
 
-//   get_rect_bound     = 29,
+  NifS2LoopRef(S2Loop& l1){
+    this->s2loop = new S2Loop(l1);
+  }
 
-//   contains_s2cellid  = 30,
-//   may_intersect_s2cellid  = 31,
-//   contains_s2point   = 32,
-//   encode             = 33,
-// };
+  NifS2LoopRef(S2Loop* l1){
+    this->s2loop = l1;
+  }
 
-// ERL_NIF_TERM s2loop_constructor(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
-// ERL_NIF_TERM s2loop_methods(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
-// ERL_NIF_TERM s2region_coverer_get_covering_for_s2loop(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+  ~NifS2LoopRef()
+  {
+    if(this->s2loop){
+      delete this->s2loop;
+    }
+  }
+};
 
-// #endif
+ERL_NIF_TERM s2loop_new_from_s2point_list(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2loop_new_from_s2latlng_list(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2loop_new_from_s2cellid(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2loop_new_from_s2cell(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+
+ERL_NIF_TERM s2loop_is_valid(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2loop_num_vertices(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2loop_vertex(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2loop_oriented_vertex(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2loop_is_empty(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2loop_is_full(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2loop_is_empty_or_full(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+
+ERL_NIF_TERM s2loop_depth(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2loop_set_depth(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+
+ERL_NIF_TERM s2loop_is_hole(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2loop_sign(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+
+ERL_NIF_TERM s2loop_is_normalized(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2loop_normalize(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2loop_invert(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+
+ERL_NIF_TERM s2loop_get_area(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2loop_get_centroid(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2loop_get_turning_angle(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2loop_get_turning_angle_max_error(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+
+ERL_NIF_TERM s2loop_get_distance(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2loop_get_distance_to_boundary(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2loop_project(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2loop_project_to_boundary(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+
+ERL_NIF_TERM s2loop_contains_s2loop(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2loop_contains_s2cell(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2loop_contains_s2cellid(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2loop_contains_s2point(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+
+ERL_NIF_TERM s2loop_contains_nested(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+
+ERL_NIF_TERM s2loop_intersects(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2loop_equals(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2loop_boundary_equals(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2loop_boundary_approx_equals(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2loop_boundary_near(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+
+ERL_NIF_TERM s2loop_clone(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);// TODO: Implement once copy constrctor is public
+
+ERL_NIF_TERM s2loop_get_cap_bound(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2loop_get_rect_bound(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+
+ERL_NIF_TERM s2loop_may_intersect_s2cell(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2loop_may_intersect_s2cellid(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+
+ERL_NIF_TERM s2loop_encode(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2loop_decode(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+
+ERL_NIF_TERM s2loop_compare_boundary(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+ERL_NIF_TERM s2loop_contains_non_crossing_boundary(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
+
+#endif

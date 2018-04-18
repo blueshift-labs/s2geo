@@ -21,6 +21,7 @@ ERL_NIF_TERM s2latlng_from_s1angle_lat_lng(ErlNifEnv* env, int argc, const ERL_N
         CHECK_ARGS_LENGTH(env, argc, 2);
         S1Angle lat = nifpp::get<S1Angle>(env, nifpp::TERM(argv[0]));
         S1Angle lng = nifpp::get<S1Angle>(env, nifpp::TERM(argv[1]));
+        return nifpp::make(env, S2LatLng(lat, lng).Normalized());
     }
     catch(nifpp::badarg) {}
     catch(...){ return ATOMS.atomInternalError;}

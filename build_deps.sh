@@ -12,8 +12,7 @@ KERNEL=$(echo $(lsb_release -ds 2>/dev/null || cat /etc/*release 2>/dev/null | h
 
 ##echo $OS
 ##echo $KERNEL
-
-S2_GEOMETRY_REPO=https://github.com/google/s2geometry.git
+S2_GEOMETRY_REPO=https://github.com/cibingeorge/s2geometry.git
 S2_GEOMETRY_REV=$1
 
 case $OS in

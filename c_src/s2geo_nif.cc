@@ -2,20 +2,20 @@
 #include "constants.h"
 #include "nif_s1interval.h"
 #include "nif_s2cellid.h"
-//#include "nif_s2cellunion.h"
-//#include "nif_s2latlngrect.h"
+#include "nif_s2cellunion.h"
+#include "nif_s2latlngrect.h"
 #include "nif_s2latlng.h"
-//#include "nif_s2loop.h"
+#include "nif_s2loop.h"
 #include "nif_s2cap.h"
 #include "nif_s2earth.h"
 
 #include "nifpp_utils.h"
 
-//#include "s2cell.h"
-//#include "s2cellunion.h"
+#include "s2/s2cell.h"
+#include "s2/s2cell_union.h"
 #include "s2/s2latlng.h"
 #include "s2/s2latlng_rect.h"
-//#include "s2loop.h"
+#include "s2/s2loop.h"
 #include "s2/s2cap.h"
 
 atoms ATOMS;
@@ -43,13 +43,12 @@ static int on_nif_load(ErlNifEnv* env, void** priv_data, ERL_NIF_TERM load_info)
     ATOMS.atomNotImplemented = make_atom(env, s2geo::kAtomNotImplemented);
     ATOMS.atomInternalError = make_atom(env, s2geo::kAtomInternalError);
 
-    nifpp::register_resource<S2Cell>(env, nullptr, "S2Cell");
-    nifpp::register_resource<S2LatLng>(env, nullptr, "S2LatLng");
-    nifpp::register_resource<S2LatLngRect>(env, nullptr, "S2LatLngRect");
-//    nifpp::register_resource<S2CellUnion>(env, nullptr, "S2CellUnion");
-//    nifpp::register_resource<S2Loop>(env, nullptr, "S2Loop");
-    nifpp::register_resource<S2Cap>(env, nullptr, "S2Cap");
-
+    nifpp::register_resource<S2Cell>(env, "s2geometry", "S2Cell");
+    nifpp::register_resource<S2LatLngRect>(env, "s2geometry", "S2LatLngRect");
+    nifpp::register_resource<S2CellUnion>(env, "s2geometry", "S2CellUnion");
+    nifpp::register_resource<S2Cap>(env, "s2geometry", "S2Cap");
+    nifpp::register_resource<S2Loop>(env, "s2geometry", "S2Loop");
+    nifpp::register_resource<NifS2LoopRef>(env, "s2geometry", "NifS2LoopRef");
     return 0;
 }
 
@@ -144,37 +143,160 @@ static ErlNifFunc nif_funcs[] = {
     {"s2cellid_lsb_for_level", 1, s2cellid_lsb_for_level},
     {"s2cellid_ij_level_to_bound_uv", 1, s2cellid_ij_level_to_bound_uv},
 
-    // {"s2latlngrect_constructor",    1, s2latlngrect_constructor},
-    // {"s2latlngrect_constructor",    2, s2latlngrect_constructor},
-    // {"s2latlngrect_constructor",    3, s2latlngrect_constructor},
-    // {"s2latlngrect_methods",        2, s2latlngrect_methods},
-    // {"s2latlngrect_methods",        3, s2latlngrect_methods},
+
+    {"s2cellunion_new_from_cellids", 1, s2cellunion_new_from_cellids},
+    {"s2cellunion_new_from_normalized_cellids", 1, s2cellunion_new_from_normalized_cellids},
+    {"s2cellunion_new_from_min_max", 2, s2cellunion_new_from_min_max},
+    {"s2cellunion_new_from_begin_end", 2, s2cellunion_new_from_begin_end},
+    {"s2cellunion_num_cells", 1, s2cellunion_num_cells},
+    {"s2cellunion_cell_id", 2, s2cellunion_cell_id},
+    {"s2cellunion_cell_ids", 1, s2cellunion_cell_ids},
+    {"s2cellunion_is_valid", 1, s2cellunion_is_valid},
+    {"s2cellunion_is_normalized", 1, s2cellunion_is_normalized},
+    {"s2cellunion_normalize", 1, s2cellunion_normalize},
+    {"s2cellunion_denormalize", 3, s2cellunion_denormalize},
+    {"s2cellunion_pack", 2, s2cellunion_pack},
+    {"s2cellunion_contains_s2cellid", 2, s2cellunion_contains_s2cellid},
+    {"s2cellunion_intersects_s2cellid", 2, s2cellunion_intersects_s2cellid},
+    {"s2cellunion_contains_s2cellunion", 2, s2cellunion_contains_s2cellunion},
+    {"s2cellunion_intersects_s2cellunion", 2, s2cellunion_intersects_s2cellunion},
+    {"s2cellunion_union", 2, s2cellunion_union},
+    {"s2cellunion_intersection", 2, s2cellunion_intersection},
+    {"s2cellunion_intersection_with_s2cellid", 2, s2cellunion_intersection_with_s2cellid},
+    {"s2cellunion_difference", 2, s2cellunion_difference},
+    {"s2cellunion_expand_level", 2, s2cellunion_expand_level},
+    {"s2cellunion_expand_radius", 3, s2cellunion_expand_radius},
+    {"s2cellunion_leaf_cells_covered", 1, s2cellunion_leaf_cells_covered},
+    {"s2cellunion_average_based_area", 1, s2cellunion_average_based_area},
+    {"s2cellunion_approx_area", 1, s2cellunion_approx_area},
+    {"s2cellunion_exact_area", 1, s2cellunion_exact_area},
+    {"s2cellunion_get_cap_bound", 1, s2cellunion_get_cap_bound},
+    {"s2cellunion_get_rect_bound", 1, s2cellunion_get_rect_bound},
+    {"s2cellunion_equal", 2, s2cellunion_equal},
+    {"s2cellunion_not_equal", 2, s2cellunion_not_equal},
+    {"s2cellunion_contains_s2cell", 2, s2cellunion_contains_s2cell},
+    {"s2cellunion_may_intersect_s2cellid", 2, s2cellunion_may_intersect_s2cellid},
+    {"s2cellunion_may_intersect_s2cell", 2, s2cellunion_may_intersect_s2cell},
+    {"s2cellunion_contains_s2point", 2, s2cellunion_contains_s2point},
+    {"s2cellunion_encode", 1, s2cellunion_encode},
+    {"s2cellunion_decode", 1, s2cellunion_decode},
+
+
+    {"s2latlngrect_from_lat_lng", 2, s2latlngrect_from_lat_lng},
+    {"s2latlngrect_from_r1inteval_s1interval", 2, s2latlngrect_from_r1inteval_s1interval},
+    {"s2latlngrect_from_center_size", 2, s2latlngrect_from_center_size},
+    {"s2latlngrect_from_point", 1, s2latlngrect_from_point},
+    {"s2latlngrect_from_point_pair", 2, s2latlngrect_from_point_pair},
+    {"s2latlngrect_empty", 0, s2latlngrect_empty},
+    {"s2latlngrect_full", 0, s2latlngrect_full},
+    {"s2latlngrect_full_lat", 0, s2latlngrect_full_lat},
+    {"s2latlngrect_full_lng", 0, s2latlngrect_full_lng},
+
+    {"s2latlngrect_lat_lo", 1, s2latlngrect_lat_lo},
+    {"s2latlngrect_lat_hi", 1, s2latlngrect_lat_hi},
+    {"s2latlngrect_lng_lo", 1, s2latlngrect_lng_lo},
+    {"s2latlngrect_lng_hi", 1, s2latlngrect_lng_hi},
+    {"s2latlngrect_lat", 1, s2latlngrect_lat},
+    {"s2latlngrect_lng", 1, s2latlngrect_lng},
+    {"s2latlngrect_lo", 1, s2latlngrect_lo},
+    {"s2latlngrect_hi", 1, s2latlngrect_hi},
+    {"s2latlngrect_is_valid", 1, s2latlngrect_is_valid},
+    {"s2latlngrect_is_empty", 1, s2latlngrect_is_empty},
+    {"s2latlngrect_is_full", 1, s2latlngrect_is_full},
+    {"s2latlngrect_is_point", 1, s2latlngrect_is_point},
+    {"s2latlngrect_is_inverted", 1, s2latlngrect_is_inverted},
+    {"s2latlngrect_get_vertex", 1, s2latlngrect_get_vertex},
+    {"s2latlngrect_get_center", 1, s2latlngrect_get_center},
+    {"s2latlngrect_get_size", 1, s2latlngrect_get_size},
+    {"s2latlngrect_area", 1, s2latlngrect_area},
+    {"s2latlngrect_contains_s2latlng", 2, s2latlngrect_contains_s2latlng},
+    {"s2latlngrect_interior_contains_s2point", 2, s2latlngrect_interior_contains_s2point},
+    {"s2latlngrect_interior_contains_s2latlng", 2, s2latlngrect_interior_contains_s2latlng},
+    {"s2latlngrect_contains_s2latlngrect", 2, s2latlngrect_contains_s2latlngrect},
+    {"s2latlngrect_interior_contains_s2latlngrect", 2, s2latlngrect_interior_contains_s2latlngrect},
+    {"s2latlngrect_intersects_s2latlngrect", 2, s2latlngrect_intersects_s2latlngrect},
+    {"s2latlngrect_intersects_s2cell_with_id", 2, s2latlngrect_intersects_s2cell_with_id},
+    {"s2latlngrect_interior_intersects_s2latlngrect", 2, s2latlngrect_interior_intersects_s2latlngrect},
+    {"s2latlngrect_boundary_intersects", 3, s2latlngrect_boundary_intersects},
+    {"s2latlngrect_contains_s2cell_with_id", 2, s2latlngrect_contains_s2cell_with_id},
+    {"s2latlngrect_contains_s2point", 2, s2latlngrect_contains_s2point},
+    {"s2latlngrect_may_intersect_s2cell_with_id", 2, s2latlngrect_may_intersect_s2cell_with_id},
+    {"s2latlngrect_expanded", 2, s2latlngrect_expanded},
+    {"s2latlngrect_union", 2, s2latlngrect_union},
+    {"s2latlngrect_intersection", 2, s2latlngrect_intersection},
+
+    {"s2latlngrect_add_point_s2latlng", 2, s2latlngrect_add_point_s2latlng},
+    {"s2latlngrect_add_point", 2, s2latlngrect_add_point},
+    {"s2latlngrect_get_distance", 2, s2latlngrect_get_distance},
+    {"s2latlngrect_get_distance_s2latlng", 2, s2latlngrect_get_distance_s2latlng},
+    {"s2latlngrect_get_directed_hausdorff_distance", 2, s2latlngrect_get_directed_hausdorff_distance},
+    {"s2latlngrect_get_hausdorff_distance", 2, s2latlngrect_get_hausdorff_distance},
+    {"s2latlngrect_equal", 2, s2latlngrect_equal},
+    {"s2latlngrect_not_equal", 2, s2latlngrect_not_equal},
+
+    {"s2latlngrect_approx_equals_with_s1angle_error", 2, s2latlngrect_approx_equals_with_s1angle_error},
+    {"s2latlngrect_approx_equals_with_s1angle_error", 3, s2latlngrect_approx_equals_with_s1angle_error},
+    {"s2latlngrect_approx_equals_with_s2latlng_error", 3, s2latlngrect_approx_equals_with_s2latlng_error},
+
+    {"s2latlngrect_get_cap_bound", 1, s2latlngrect_get_cap_bound},
+    {"s2latlngrect_get_rect_bound", 1, s2latlngrect_get_rect_bound},
+
+    {"s2latlngrect_decode", 1, s2latlngrect_decode},
+    {"s2latlngrect_encode", 1, s2latlngrect_encode},
+
+    {"s2latlngrect_intersects_lng_edge", 4, s2latlngrect_intersects_lng_edge},
+    {"s2latlngrect_intersects_lat_edge", 4, s2latlngrect_intersects_lat_edge},
 
     // {"s2latlngrect_get_covering",   3, s2region_coverer_get_covering_for_s2latlngrect},
     // {"s2latlngrect_get_covering",   4, s2region_coverer_get_covering_for_s2latlngrect},
 
-    // {"s2cellunion_constructor",     2, s2cellunion_constructor},
-    // {"s2cellunion_constructor",     3, s2cellunion_constructor},
-    // {"s2cellunion_methods",         2, s2cellunion_methods},
-    // {"s2cellunion_methods",         3, s2cellunion_methods},
-    // {"s2cellunion_methods",         4, s2cellunion_methods},
-    // {"s2cellunion_get_covering",    3, s2region_coverer_get_covering_for_s2cellunion},
-    // {"s2cellunion_get_covering",    4, s2region_coverer_get_covering_for_s2cellunion},
 
-    // {"s2loop_constructor",          2, s2loop_constructor},
-    // {"s2loop_methods",              2, s2loop_methods},
-    // {"s2loop_methods",              3, s2loop_methods},
-    // {"s2loop_methods",              4, s2loop_methods},
-    // {"s2loop_get_covering",         3, s2region_coverer_get_covering_for_s2loop},
-    // {"s2loop_get_covering",         4, s2region_coverer_get_covering_for_s2loop},
+    {"s2loop_new_from_s2point_list", 1, s2loop_new_from_s2point_list},
+    {"s2loop_new_from_s2latlng_list", 1, s2loop_new_from_s2latlng_list},
+    {"s2loop_new_from_s2cellid", 1, s2loop_new_from_s2cellid},
+    {"s2loop_new_from_s2cell", 1, s2loop_new_from_s2cell},
+    {"s2loop_is_valid", 1, s2loop_is_valid},
+    {"s2loop_num_vertices", 1, s2loop_num_vertices},
+    {"s2loop_vertex", 2, s2loop_vertex},
+    {"s2loop_oriented_vertex", 2, s2loop_oriented_vertex},
+    {"s2loop_is_empty", 1, s2loop_is_empty},
+    {"s2loop_is_full", 1, s2loop_is_full},
+    {"s2loop_is_empty_or_full", 1, s2loop_is_empty_or_full},
+    {"s2loop_depth", 1, s2loop_depth},
+    {"s2loop_set_depth", 2, s2loop_set_depth},
+    {"s2loop_is_hole", 1, s2loop_is_hole},
+    {"s2loop_sign", 1, s2loop_sign},
+    {"s2loop_is_normalized", 1, s2loop_is_normalized},
+    {"s2loop_normalize", 1, s2loop_normalize},
+    {"s2loop_invert", 1, s2loop_invert},
+    {"s2loop_get_area", 1, s2loop_get_area},
+    {"s2loop_get_centroid", 1, s2loop_get_centroid},
+    {"s2loop_get_turning_angle", 1, s2loop_get_turning_angle},
+    {"s2loop_get_turning_angle_max_error", 1, s2loop_get_turning_angle_max_error},
+    {"s2loop_get_distance", 2, s2loop_get_distance},
+    {"s2loop_get_distance_to_boundary", 2, s2loop_get_distance_to_boundary},
+    {"s2loop_project", 2, s2loop_project},
+    {"s2loop_project_to_boundary", 2, s2loop_project_to_boundary},
+    {"s2loop_contains_s2loop", 2, s2loop_contains_s2loop},
+    {"s2loop_contains_s2cell", 2, s2loop_contains_s2cell},
+    {"s2loop_contains_s2cellid", 2, s2loop_contains_s2cellid},
+    {"s2loop_contains_s2point", 2, s2loop_contains_s2point},
+    {"s2loop_intersects", 2, s2loop_intersects},
+    {"s2loop_equals", 2, s2loop_equals},
+    {"s2loop_boundary_equals", 2, s2loop_boundary_equals},
+    {"s2loop_boundary_approx_equals", 3, s2loop_boundary_approx_equals},
+    {"s2loop_boundary_near", 3, s2loop_boundary_near},
+    {"s2loop_clone", 1, s2loop_clone},
+    {"s2loop_get_cap_bound", 1, s2loop_get_cap_bound},
+    {"s2loop_get_rect_bound", 1, s2loop_get_rect_bound},
+    {"s2loop_may_intersect_s2cell", 2, s2loop_may_intersect_s2cell},
+    {"s2loop_may_intersect_s2cellid", 2, s2loop_may_intersect_s2cellid},
+    {"s2loop_encode", 1, s2loop_encode},
+    {"s2loop_decode", 1, s2loop_decode},
+    {"s2loop_contains_nested", 2, s2loop_contains_nested},
+    {"s2loop_compare_boundary", 2, s2loop_compare_boundary},
+    {"s2loop_contains_non_crossing_boundary", 3, s2loop_contains_non_crossing_boundary},
 
-    // {"s2cap_constructor",           1, s2cap_constructor},
-    // {"s2cap_constructor",           3, s2cap_constructor},
-    // {"s2cap_methods",               2, s2cap_methods},
-    // {"s2cap_methods",               3, s2cap_methods},
-    // {"s2cap_methods",               4, s2cap_methods},
-    // {"s2cap_get_covering",          3, s2region_coverer_get_covering_for_s2cap},
-    // {"s2cap_get_covering",          4, s2region_coverer_get_covering_for_s2cap},
 
     {"s2cap_from_s2point_s1angle", 2, s2cap_from_s2point_s1angle},
     {"s2cap_from_s2point_s1chordangle", 2, s2cap_from_s2point_s1chordangle},
