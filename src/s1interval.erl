@@ -1,9 +1,5 @@
 -module(s1interval).
 
--include("s2geo.hrl").
-
--include("s1interval_internals.hrl").
-
 %% API exports
 -export([
   new/0,

@@ -1,8 +1,5 @@
 -module(s2cap).
 
--include("s2geo_internals.hrl").
--include("s2cap.hrl").
-
 -export([
   new/1,
   new/2,

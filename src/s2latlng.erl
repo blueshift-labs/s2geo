@@ -1,8 +1,5 @@
 -module(s2latlng).
 
--include("s2geo_internals.hrl").
--include("s2latlng_internals.hrl").
-
 %% API exports
 -export([
   new/0,

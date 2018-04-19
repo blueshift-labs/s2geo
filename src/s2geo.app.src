@@ -7,7 +7,20 @@
     stdlib
     ]},
   {env,[]},
-  {modules, []},
+  {modules, [
+  s2geo,
+  r1interval,
+  s1angle,
+  s1interval,
+  s2cap,
+  s2cellid,
+  s2cellunion,
+  s2earth,
+  s2geo_nif,
+  s2latlng,
+  s2latlngrect,
+  s2loop
+  ]},
   {maintainers, ["Cibin George <cibin@getblueshift.com>"]},
   {licenses, []},
   {links, []}

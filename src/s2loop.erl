@@ -1,7 +1,5 @@
 -module(s2loop).
 
--include("s2geo_internals.hrl").
-
 -export([
   new/1,
   new_from_s2point_list/1,

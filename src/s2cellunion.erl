@@ -1,7 +1,5 @@
 -module(s2cellunion).
 
--include("s2geo_internals.hrl").
-
 %% API exports
 -export([
     new_from_s2cellids/1,

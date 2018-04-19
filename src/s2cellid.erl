@@ -1,7 +1,5 @@
 -module(s2cellid).
 
--include("s2cellid_internals.hrl").
-
 %% TODO: Implement thesse:
 % s2cellid_from_s2point/1,
 % s2cellid_get_center_st/1,
