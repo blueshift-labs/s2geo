@@ -48,6 +48,8 @@ static int on_nif_load(ErlNifEnv* env, void** priv_data, ERL_NIF_TERM load_info)
     nifpp::register_resource<S2CellUnion>(env, "s2geometry", "S2CellUnion");
     nifpp::register_resource<S2Cap>(env, "s2geometry", "S2Cap");
     nifpp::register_resource<S2Loop>(env, "s2geometry", "S2Loop");
+
+    nifpp::register_resource<NifS2LatLngRectRef>(env, "s2geometry", "NifS2LatLngRectRef");
     nifpp::register_resource<NifS2LoopRef>(env, "s2geometry", "NifS2LoopRef");
     return 0;
 }

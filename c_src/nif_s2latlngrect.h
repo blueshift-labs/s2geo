@@ -1,6 +1,32 @@
 #ifndef S2GEO_C_SRC_NIF_S2LATLNGRECT_H
 #define S2GEO_C_SRC_NIF_S2LATLNGRECT_H
 
+#include <mutex>
+#include "s2/s2latlng_rect.h"
+
+class NifS2LatLngRectRef
+{
+public:
+  S2LatLngRect *rect;
+  std::mutex mutex;
+
+  NifS2LatLngRectRef(S2LatLngRect& r){
+    this->rect = new S2LatLngRect(r);
+  }
+
+  NifS2LatLngRectRef(S2LatLngRect* r){
+    this->rect = r;
+  }
+
+  ~NifS2LatLngRectRef()
+  {
+    if(this->rect){
+      delete this->rect;
+    }
+  }
+};
+
+
 ERL_NIF_TERM s2latlngrect_from_lat_lng(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
 ERL_NIF_TERM s2latlngrect_from_r1inteval_s1interval(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
 ERL_NIF_TERM s2latlngrect_from_center_size(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]);
